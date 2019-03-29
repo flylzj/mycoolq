@@ -16,10 +16,11 @@ services:
     image: richardchien/cqhttp:latest
     environment:
       - FORCE_ENV=true
-      - COOLQ_WS_REVERSE_API_URL=ws://bot:8080/ws/api/
-      - COOLQ_WS_REVERSE_EVENT_URL=ws://bot:8080/ws/event/
-      - COOLQ_USE_WS_REVERSE=yes
-      - COOLQ_ACCOUNT=732599980
+      - CQHTTP_WS_REVERSE_API_URL=ws://bot:8080/ws/api/
+      - CQHTTP_WS_REVERSE_EVENT_URL=ws://bot:8080/ws/event/
+      - CQHTTP_USE_WS_REVERSE=yes
+      - CQHTTP_SERVE_DATA_FILES=yes
+      - CQHTTP_ACCOUNT=732599980
       - VNC_PASSWD=qwer1234
     volumes:
       - ./cq:/home/user/coolq
