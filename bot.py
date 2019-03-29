@@ -10,4 +10,4 @@ if __name__ == '__main__':
         os.path.join(os.path.dirname(__file__), 'coolq', 'plugins'),
         'coolq.plugins'
     )
-    nonebot.run(host='127.0.0.1', port=8080)
+    nonebot.run(host='0.0.0.0', port=8080)
