@@ -9,6 +9,7 @@ services:
       - .:/app
     ports:
       - "8080:8080"
+    command: python3 bot.py
 
   coolq:
     restart: always
