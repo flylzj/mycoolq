@@ -14,6 +14,7 @@ services:
     restart: always
     image: richardchien/cqhttp:latest
     environment:
+      - FORCE_ENV=true
       - COOLQ_WS_REVERSE_API_URL=ws://bot:8080/ws/api/
       - COOLQ_WS_REVERSE_EVENT_URL=ws://bot:8080/ws/event/
       - COOLQ_USE_WS_REVERSE=yes
