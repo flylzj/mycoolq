@@ -4,7 +4,7 @@ from aiocqhttp.exceptions import Error as CQHttpError
 from config import BIG_FINGER_GROUP_ID
 
 
-@nonebot.scheduler.scheduled_job('cron', second='1-59/1')
+@nonebot.scheduler.scheduled_job('cron', minute='1-59/1')
 async def _():
     bot = nonebot.get_bot()
     try:
