@@ -28,3 +28,6 @@ services:
       - "9000:9000"
       - "5700:5700"
 
+  redis:
+    restart: always
+    image: redis:latest
