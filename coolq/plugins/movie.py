@@ -1,6 +1,6 @@
 # coding: utf-8
 from nonebot import on_command, CommandSession
-import aiohttp, asyncio
+import aiohttp
 from config import MOVIE_URL
 from bs4 import BeautifulSoup
 import re
@@ -35,19 +35,32 @@ async def get_movie(movie: str) -> str:
         async with session.get(MOVIE_URL + "?s={}".format(movie), allow_redirects=True) as r:
             soup = BeautifulSoup(await r.text(), 'html.parser')
             movies = []
-            for m in soup.find_all('article', attrs={"itemtype": "http://schema.org/BlogPosting"}):
-                async with session.get(m.find('h2', attrs={"class": "entry-title"}).a['href']) as link_r:
-                    link_soup = BeautifulSoup(await link_r.text(), 'html.parser')
-                    pans = link_soup.find_all('a', attrs={"href": re.compile(r'https://pan.baidu.com/s/.*')})
-                    if pans:
-                        movies.append(
-                            m.find('h2', attrs={"class": "entry-title"}).text + "\n".join(
-                                [
-                                    pan['href'] + pan.parent.text
-                                    for pan in pans
-                                ]
-                            ) + "\n" + "-" * 30
-                        )
+            if re.search(r'http://www.coupling.pw/\d*.htm', str(r.url)):
+                link_soup = soup
+                pans = link_soup.find_all('a', attrs={"href": re.compile(r'https://pan.baidu.com/s/.*')})
+                if pans:
+                    movies.append(
+                        soup.find('h1', attrs={"class": "entry-title"}).text + "\n".join(
+                            [
+                                pan['href'] + pan.parent.text
+                                for pan in pans
+                            ]
+                        ) + "\n" + "-" * 30
+                    )
+            else:
+                for m in soup.find_all('article', attrs={"itemtype": "http://schema.org/BlogPosting"}):
+                    async with session.get(m.find('h2', attrs={"class": "entry-title"}).a['href']) as link_r:
+                        link_soup = BeautifulSoup(await link_r.text(), 'html.parser')
+                        pans = link_soup.find_all('a', attrs={"href": re.compile(r'https://pan.baidu.com/s/.*')})
+                        if pans:
+                            movies.append(
+                                m.find('h2', attrs={"class": "entry-title"}).text + "\n".join(
+                                    [
+                                        pan['href'] + pan.parent.text
+                                        for pan in pans
+                                    ]
+                                ) + "\n" + "-" * 30
+                            )
             if not movies:
                 return "没有找到"
             return "".join(movies)

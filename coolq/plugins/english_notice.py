@@ -3,7 +3,6 @@ import nonebot
 from aiocqhttp.exceptions import Error as CQHttpError
 from config import BIG_FINGER_GROUP_ID
 from nonebot.log import logger
-import redis
 
 
 @nonebot.scheduler.scheduled_job('cron', hour="22, 23", minute='30')
