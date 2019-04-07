@@ -1,7 +1,7 @@
 # coding: utf-8
 import nonebot
 from aiocqhttp.exceptions import Error as CQHttpError
-from config import BIG_FINGER_GROUP_ID, POOL
+from config import BIG_FINGER_GROUP_ID
 from nonebot.log import logger
 import redis
 
