@@ -1,5 +1,13 @@
 # coding: utf-8
 from nonebot.default_config import *
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+# db
+ENGINE = create_engine('sqlite:///./data/data.db')
+
+SESSION = sessionmaker(bind=ENGINE)
+###
 
 
 SUPERUSERS = {1449902124}
