@@ -5,7 +5,7 @@ import aiohttp
 from config import HWEATHER_KEY, WEATHER_CONFIG, WEATHER_TYPE, HWEATHER_API, BIG_FINGER_GROUP_ID
 
 
-@nonebot.scheduler.scheduled_job('cron', hour="8", minute='30')
+@nonebot.scheduler.scheduled_job('cron', hour="7", minute='30')
 async def _():
     bot = nonebot.get_bot()
     for qq, loc in WEATHER_CONFIG.items():
