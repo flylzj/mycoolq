@@ -1,7 +1,7 @@
 # coding: utf-8
 from config import SESSION
 from nonebot import get_bot
-from coolq.db.model.english_record import EnglishRecord, search_history, get_recorded_today
+from coolq.db.model.english_record import EnglishRecord, search_history, count_recorded
 import aiohttp
 from bs4 import BeautifulSoup
 import time
@@ -42,4 +42,8 @@ async def _(ctx):
                 session.commit()
             except Exception as e:
                 bot.logger.error(e)
+            word_count, days_this_month, days_total = count_recorded(str(user_id))
+            msg = "打卡统计：\n本月单词数量: {}\n本月打卡数量: {}\n总打卡数量: {}\n".format(
+                word_count, days_this_month, days_total) + "[CQ:at,qq={}]".format(user_id)
             await bot.send(ctx, message="今日打卡完成")
+            await bot.send(ctx, message=msg)

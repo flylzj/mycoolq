@@ -4,6 +4,7 @@ from config import SESSION
 from . import Base
 import time
 from datetime import datetime
+import calendar
 
 
 class EnglishRecord(Base):
@@ -39,6 +40,24 @@ def get_recorded_today():
             time.mktime(d) + 86399 > EnglishRecord.record_datetime # 当天时间
         ).all()
         return res
+    except Exception as e:
+        pass
+
+def count_recorded(user_id):
+    try:
+        session = SESSION()
+        d = datetime.today().today()
+        month_start_d = datetime(year=d.year, month=d.month, day=1).timetuple()
+        month_end_d = datetime(year=d.year, month=d.month, day=calendar.monthrange(year=d.year, month=d.month)[-1]).timetuple()
+        res = session.query(EnglishRecord).filter(
+            time.mktime(month_start_d) < EnglishRecord.record_datetime,
+            time.mktime(month_end_d) + 86399 > EnglishRecord.record_datetime,  # 当天时间,
+            EnglishRecord.user_id == user_id
+        ).all()
+        word_count = sum([record.word_count for record in res])
+        days_this_month = len(res)
+        days_total = res[-1].days
+        return word_count, days_this_month, days_total
     except Exception as e:
         pass
 
