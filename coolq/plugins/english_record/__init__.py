@@ -1,7 +1,7 @@
 # coding: utf-8
 from config import SESSION
-from coolq.db.model.english_record import EnglishRecord
 from nonebot import get_bot
+from coolq.db.model.english_record import EnglishRecord, search_history, get_recorded_today
 import aiohttp
 from bs4 import BeautifulSoup
 import time
@@ -15,14 +15,6 @@ async def get_english_record(url):
             nums = soup.find('p', attrs={'id': 'today', 'class': 'num-roll'})['data-num']
             days = soup.find('p', attrs={'id': 'days', 'class': 'num-roll'})['data-num']
             return nums, days
-
-def search_history(url):
-    try:
-        session = SESSION()
-        res = session.query(EnglishRecord).filter_by(url=url).first()
-        return res
-    except Exception as e:
-        bot.logger.error(e)
 
 @bot.on_message()
 async def _(ctx):

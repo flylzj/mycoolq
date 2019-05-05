@@ -9,6 +9,9 @@ ENGINE = create_engine('sqlite:///./data/data.db')
 SESSION = sessionmaker(bind=ENGINE)
 ###
 
+## english
+
+ENGLISH_USERS = {2864158129, 1449902124}
 
 SUPERUSERS = {1449902124}
 
