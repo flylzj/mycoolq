@@ -1,14 +1,28 @@
-# coding: utf-8
-from coolq.db.model.english_record import get_statistics_data
-from pyecharts.charts import Bar, Line
+# # coding: utf-8
+from pyecharts.charts import Line
 from pyecharts import options as opts
+from coolq.db.model.english_record import get_statistics_data
 
 
-def render_data(data):
-    bar = (
-        Bar()
-        .add_xaxis(data.keys())
-        .add_yaxis("days", [d.get('days') for k, d in data.items()])
-        .set_global_opts(title_opts=opts.TitleOpts(title="days"))
+# 打卡统计图
+def render_english_record_data(data):
+    date_x = []
+    for _, v in data.items():
+        for d in v:
+            if d not in date_x:
+                date_x.append(d)
+    date_x.sort()
+    line = (
+        Line(opts.InitOpts(page_title="打卡统计图"))
+        .add_xaxis(date_x)
+        .set_global_opts(title_opts=opts.TitleOpts(title="打卡统计图"))
     )
-    bar.render()
+    for k in data:
+        line.add_yaxis(k[-1], [v for v in data.get(k).values()])
+    line.render(
+        path="./nginx_static/render.html",
+    )
+
+
+if __name__ == '__main__':
+    render_english_record_data(get_statistics_data())

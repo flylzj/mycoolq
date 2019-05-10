@@ -1,12 +1,14 @@
 # coding: utf-8
 from config import SESSION
 from nonebot import get_bot
-from coolq.db.model.english_record import EnglishRecord, search_history, count_recorded
+from coolq.db.model.english_record import EnglishRecord, search_history, count_recorded, get_statistics_data
+from coolq.plugins.english_record.record_charts import render_english_record_data
 import aiohttp
 from bs4 import BeautifulSoup
 import time
 
 bot = get_bot()
+
 
 async def get_english_record(url):
     async with aiohttp.ClientSession() as http_session:
@@ -15,6 +17,7 @@ async def get_english_record(url):
             nums = soup.find('p', attrs={'id': 'today', 'class': 'num-roll'})['data-num']
             days = soup.find('p', attrs={'id': 'days', 'class': 'num-roll'})['data-num']
             return nums, days
+
 
 @bot.on_message()
 async def _(ctx):
@@ -43,7 +46,9 @@ async def _(ctx):
             except Exception as e:
                 bot.logger.error(e)
             word_count, days_this_month, days_total = count_recorded(str(user_id))
-            msg = "打卡统计：\n本月单词数量: {}\n本月打卡数量: {}\n总打卡数量: {}\n".format(
-                word_count, days_this_month, days_total) + "[CQ:at,qq={}]".format(user_id)
+            msg = "打卡统计：\n本月单词数量: {}\n本月打卡数量: {}\n总打卡数量: {}\n统计图: {}\n".format(
+                word_count, days_this_month, days_total, "http://120.24.66.220:8081/render.html") \
+                + "[CQ:at,qq={}]".format(user_id)
             await bot.send(ctx, message="今日打卡完成")
+            render_english_record_data(get_statistics_data())
             await bot.send(ctx, message=msg)

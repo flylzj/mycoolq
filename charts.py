@@ -1,5 +1,5 @@
 # # coding: utf-8
-from pyecharts.charts import Line
+from pyecharts.charts import Line, Bar
 from pyecharts import options as opts
 
 
@@ -12,14 +12,14 @@ def render_english_record_data(data):
                 date_x.append(d)
     date_x.sort()
     line = (
-        Line()
+        Line(opts.InitOpts(page_title="打卡统计图"))
         .add_xaxis(date_x)
         .set_global_opts(title_opts=opts.TitleOpts(title="打卡统计图"))
     )
     for k in data:
         line.add_yaxis(k[-1], [v for v in data.get(k).values()])
     line.render(
-        path="./nginx_static/render.html"
+        path="./nginx_static/render.html",
     )
 
 
