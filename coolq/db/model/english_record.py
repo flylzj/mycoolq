@@ -86,16 +86,25 @@ def get_statistics_data(month=True):
         else:
             res = session.query(EnglishRecord).all()
         data = dict()
+        start_date = time.strftime("%Y-%m-%d", time.localtime())
+        end_date = ""
         for record in res:
-            if not data.get(record.user_id):
-                data[record.user_id] = dict()
-                data[record.user_id]["days"] = 1
-                data[record.user_id]["word_count"] = record.word_count
-            else:
-                data[record.user_id]["days"] += 1
-                data[record.user_id]["word_count"] += record.word_count
-            data[record.user_id]["avg_word_count "] = \
-                data.get(record.user_id).get("days") / data.get(record.user_id).get("word_count")
+            if not  data.get(record.user_id):
+                data[record.user_id] = {}
+            d = time.strftime("%Y-%m-%d", time.localtime(record.record_datetime))
+            data[record.user_id][d] = record.word_count
+            if d < start_date:
+                start_date = d
+            if d > end_date:
+                end_date = d
+        end_date_second = time.mktime(time.strptime(end_date, '%Y-%m-%d'))
+        start_date_second = time.mktime(time.strptime(start_date, '%Y-%m-%d'))
+        seconds =  end_date_second - start_date_second
+        days_count = int(seconds / (3600 * 24))
+        days = []
+        for i in range(days_count + 1):
+            days.append(time.strftime("%Y-%m-%d", time.localtime(start_date_second + i * (3600 * 24))))
+        # TODO 返回的数据要求连续，没有打卡的日期word_count为0
         return data
     except Exception as e:
         pass
