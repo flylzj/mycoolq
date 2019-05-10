@@ -1,6 +1,6 @@
 # 我的coolq机器人
 
-## 基于[酷Q](https://cqp.cc/)、[coolq-http-apo](https://github.com/richardchien/coolq-http-api)和[nonebot](https://github.com/richardchien/nonebot)的机器人
+## 基于[酷Q](https://cqp.cc/)、[coolq-http-api](https://github.com/richardchien/coolq-http-api)和[nonebot](https://github.com/richardchien/nonebot)的机器人
 
 
 ### 目前有的功能
