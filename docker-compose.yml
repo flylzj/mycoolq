@@ -31,3 +31,11 @@ services:
   redis:
     restart: always
     image: redis:latest
+
+  nginx:
+    restart: always
+    image: nginx:latest
+    volumes:
+      - ./nginx_static:/var/www/html
+    ports:
+      - "8081:80"
