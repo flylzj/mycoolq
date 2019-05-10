@@ -1,12 +1,20 @@
 #coding: utf-8
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 from config import SESSION
 from . import Base
 import time
 from datetime import datetime
 import calendar
-import datetime as dt
 
+
+class EnglishUser(Base):
+
+    __tablename__ = 'english_user'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(String(11), nullable=False)
+    nickname = Column(String(64))
 
 
 class EnglishRecord(Base):
@@ -14,11 +22,13 @@ class EnglishRecord(Base):
     __tablename__ = 'english_record'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(String(11), nullable=False)
+    user_id = Column(String(11), ForeignKey(EnglishUser.user_id), nullable=False)
     record_datetime = Column(Integer, nullable=False)
     word_count = Column(Integer, nullable=False)
     days = Column(Integer, nullable=False)
     url = Column(String(256), nullable=False, index=True)
+
+    user = relationship('EnglishUser', backref='records')
 
     def get_date(self):
         t = time.gmtime(self.record_datetime + 8 * 3600)  # UTC+8
@@ -89,22 +99,27 @@ def get_statistics_data(month=True):
         start_date = time.strftime("%Y-%m-%d", time.localtime())
         end_date = ""
         for record in res:
-            if not  data.get(record.user_id):
-                data[record.user_id] = {}
+            user_info = (record.user_id, record.user.nickname)
+            if not data.get(user_info):
+                data[user_info] = {}
             d = time.strftime("%Y-%m-%d", time.localtime(record.record_datetime))
-            data[record.user_id][d] = record.word_count
+            data[user_info][d] = record.word_count
             if d < start_date:
                 start_date = d
             if d > end_date:
                 end_date = d
         end_date_second = time.mktime(time.strptime(end_date, '%Y-%m-%d'))
         start_date_second = time.mktime(time.strptime(start_date, '%Y-%m-%d'))
-        seconds =  end_date_second - start_date_second
+        seconds = end_date_second - start_date_second
         days_count = int(seconds / (3600 * 24))
         days = []
         for i in range(days_count + 1):
             days.append(time.strftime("%Y-%m-%d", time.localtime(start_date_second + i * (3600 * 24))))
-        # TODO 返回的数据要求连续，没有打卡的日期word_count为0
+        for day in days:
+            for user in data:
+                if not data.get(user).get(day):
+                    data[user][day] = 0
         return data
     except Exception as e:
         pass
+
