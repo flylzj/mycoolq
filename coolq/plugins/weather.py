@@ -55,7 +55,7 @@ async def get_weather(weather_type, loc):
                     # "air": "空气指数",
                     # "spi": "防晒指数"
                 }
-                base_str =  ""
+                base_str = ""
                 for br in data.get('lifestyle'):
                     if br.get('type') in types.keys():
                         base_str += "{}: {}\n".format(types.get(br.get('type')), br.get('txt'))
