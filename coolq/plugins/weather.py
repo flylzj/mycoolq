@@ -12,7 +12,7 @@ async def _():
         try:
             now_weather = await get_weather(WEATHER_TYPE.get('实况天气'), loc)
             forecast = await get_weather(WEATHER_TYPE.get('3-10天预报'), loc)
-            lifestyle = await get_weather(WEATHER_TYPE.get('生活指数'), loc)
+            lifestyle = ""  # await get_weather(WEATHER_TYPE.get('生活指数'), loc)
             msg = "天气：{}\n{}\n{}".format(now_weather, forecast, lifestyle) + "[CQ:at,qq={}]".format(qq)
             await bot.send_group_msg(group_id=BIG_FINGER_GROUP_ID, message=msg, auto_escape=False)
             # await bot.send_group_msg(group_id=, message="为了大拇指，记得去ta点赞")
