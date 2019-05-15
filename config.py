@@ -34,6 +34,8 @@ WEATHER_CONFIG = {
     2864158129: "滨湖,无锡"
 }
 
+COMMAND_START = {'', '/'}
+
 # REDIS_CONFIG = {
 #     "host": "redis",
 #     "decode_responses": True
