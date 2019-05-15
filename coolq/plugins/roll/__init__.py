@@ -1,0 +1,10 @@
+# coding: utf-8
+from nonebot import on_command, CommandSession
+from random import randint
+
+
+@on_command('roll', aliases=('肉', ))
+async def roll_command(session: CommandSession):
+    message = "你肉到了{}点"
+    roll = randint(1, 7)
+    await session.send(message=message.format(roll))

@@ -10,4 +10,4 @@ async def _():
     try:
         await bot.send_group_msg(group_id=BIG_FINGER_GROUP_ID, message="为了大拇指，记得去ta点赞")
     except CQHttpError as e:
-        print(e)
+        bot.logger.error(e)
