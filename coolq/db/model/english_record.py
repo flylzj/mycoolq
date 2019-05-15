@@ -123,3 +123,15 @@ def get_statistics_data(month=True):
     except Exception as e:
         pass
 
+
+def search_user(user_id):
+    try:
+        session = SESSION()
+        res = session.query(EnglishUser).filter_by(
+            user_id=user_id
+        ).first()
+        return res
+    except Exception as e:
+        print(e)
+        return None
+

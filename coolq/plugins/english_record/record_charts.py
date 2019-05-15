@@ -18,7 +18,11 @@ def render_english_record_data(data):
         .set_global_opts(title_opts=opts.TitleOpts(title="打卡统计图"))
     )
     for k in data:
-        line.add_yaxis(k[-1], [v for v in data.get(k).values()])
+        line.add_yaxis(
+            k[-1],
+            [v[1] for v in sorted(data.get(k).items(), key=lambda item: item[0])],
+            is_smooth=True
+        )
     line.render(
         path="./nginx_static/render.html",
     )
