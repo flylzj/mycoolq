@@ -3,7 +3,7 @@ from nonebot import on_command, CommandSession
 from random import randint
 
 
-@on_command('roll', aliases=('肉', ))
+@on_command('roll', aliases=('肉', ), only_to_me=False)
 async def roll_command(session: CommandSession):
     message = "你肉到了{}点"
     roll = randint(1, 7)

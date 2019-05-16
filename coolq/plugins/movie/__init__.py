@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import re
 
 
-@on_command('movie', aliases=('我想看', ))
+@on_command('movie', aliases=('我想看', ), only_to_me=False)
 async def movie_command(session: CommandSession):
     movie = session.get('movie', prompt="你想看什么")
 
