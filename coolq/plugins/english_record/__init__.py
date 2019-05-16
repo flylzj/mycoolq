@@ -26,12 +26,11 @@ async def _(ctx):
     :return:
     '''
     msg = ctx.get("message")[0]
+    user_id = ctx.get('user_id')
+    nickname = ctx.get('sender').get('nickname')
     if msg.get("type") == 'share':
         data = msg.get('data')
         if 'http://learn.baicizhan.com/daka_page/qzone' in data.get('url'):
-            user_id = ctx.get('user_id')
-            nickname = ctx.get('sender').get('nickname')
-
             url = data.get('url')
             res = search_history(url)
             if res:
@@ -71,7 +70,52 @@ async def _(ctx):
             msg = "打卡统计：\n本月单词数量: {}\n本月打卡数量: {}\n总打卡数量: {}\n统计图: {}\n".format(
                 word_count, days_this_month, days_total, "http://120.24.66.220:8081/render.html") \
                 + "[CQ:at,qq={}]".format(user_id)
-            await bot.send(ctx, message="今日打卡完成")
+            # await bot.send(ctx, message="今日打卡完成")
+            render_english_record_data(get_statistics_data())
+            await bot.send(ctx, message=msg)
+    elif msg.get('type') == 'rich':
+        data = msg.get('data')
+        if "百词斩" in data.get('title'):
+            url = data.get('jumpUrl')
+            res = search_history(url)
+            if res:
+                await bot.send(ctx, message="哼！还想拿以前的打卡来糊弄人~")
+                return
+            user = search_user(str(user_id))
+            try:
+                session = SESSION()
+                if not user:
+                    u = EnglishUser(
+                        user_id=user_id,
+                        nickname=nickname
+                    )
+                    session.add(u)
+                else:
+                    user.nickname = nickname
+                session.commit()
+                session.close()
+            except Exception as e:
+                bot.logger.error(e)
+                await bot.send(ctx, message="发生错误{}".format(e))
+            nums, days = await get_english_record(url)
+            record = EnglishRecord(
+                user_id=user_id,
+                word_count=nums,
+                days=days,
+                url=url,
+                record_datetime=int(time.time())
+            )
+            try:
+                session = SESSION()
+                session.add(record)
+                session.commit()
+            except Exception as e:
+                bot.logger.error(e)
+            word_count, days_this_month, days_total = count_recorded(str(user_id))
+            msg = "打卡统计：\n本月单词数量: {}\n本月打卡数量: {}\n总打卡数量: {}\n统计图: {}\n".format(
+                word_count, days_this_month, days_total, "http://120.24.66.220:8081/render.html") \
+                  + "[CQ:at,qq={}]".format(user_id)
+            # await bot.send(ctx, message="今日打卡完成")
             render_english_record_data(get_statistics_data())
             await bot.send(ctx, message=msg)
 
