@@ -23,6 +23,7 @@ async def get_english_record(url, share=True):
                 # 返回重定向之后的url
                 return nums, days, res.url.human_repr()
 
+
 @bot.on_message()
 async def _(ctx):
     '''
