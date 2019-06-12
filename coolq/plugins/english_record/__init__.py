@@ -84,7 +84,7 @@ async def _(ctx):
                 word_count=int(nums),
                 days=int(days),
                 url=url,
-                record_datetime=int(time.time())
+                record_datetime=int(time.time()) - 3600 * 2
             )
             session = SESSION()
             session.add(record)
