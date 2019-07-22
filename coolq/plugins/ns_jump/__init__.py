@@ -29,7 +29,7 @@ async def _(session: CommandSession):
     session.state[session.current_key] = arg
 
 
-@on_command('ns_jump', aliases=('nsgame', ), only_to_me=False)
+@on_command('ns_jump_game', aliases=('nsgame', ), only_to_me=False)
 async def ns_jump_game_command(session: CommandSession):
     appid = session.get('appid', prompt="请输入要查询的游戏作为参数")
 
