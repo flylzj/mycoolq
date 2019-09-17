@@ -43,14 +43,18 @@ async def _(ctx):
         else:
             return
     elif msg.get('type') == 'rich':
+
         data = msg.get('data')
+        # print(data)
         if "百词斩" in data.get('title'):
             is_record = True
-            url = re.search(r'"jumpUrl":"(url.cn/.*?)"', data.get('content'))
+            url = re.search(r'"jumpUrl":"(http[s]?://url\.cn/.*?)"', data.get('content'))
+            # print(url)
             if not url:
                 return
             url = url.groups()[0]
-            url = "https://" + url
+            # url = "https://" + url
+            # print(url)
             nums, days, url = await get_english_record(url, share=False)
         else:
             return
@@ -74,7 +78,8 @@ async def _(ctx):
         except Exception as e:
             bot.logger.error(e)
             await bot.send(ctx, message="发生错误{}".format(e))
-        res = search_history(url)
+        res = search_history(url, str(user_id))
+        # print(res)
         if res:
             await bot.send(ctx, message="哼！还想拿以前的打卡来糊弄人~")
             return
@@ -91,9 +96,9 @@ async def _(ctx):
             session.commit()
         except Exception as e:
             bot.logger.error(e)
-        word_count, days_this_month, days_total = count_recorded(str(user_id))
-        msg = "打卡统计：\n本月单词数量: {}\n本月打卡数量: {}\n总打卡数量: {}\n统计图: {}\n".format(
-            word_count, days_this_month, days_total, "http://120.24.66.220:8081/render.html") \
+        word_count, days_this_month, days_total, day_seq = count_recorded(str(user_id))
+        msg = "打卡统计：\n本月单词数量: {}\n本月打卡天数: {}\n总打卡天数: {}\n连续天数：{}\n统计图: {}\n".format(
+            word_count, days_this_month, days_total, day_seq, "http://114.55.252.170:8081/render.html") \
               + "[CQ:at,qq={}]".format(user_id)
         render_english_record_data(get_statistics_data())
         await bot.send(ctx, message=msg)

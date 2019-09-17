@@ -35,10 +35,10 @@ class EnglishRecord(Base):
         return t
 
 
-def search_history(url):
+def search_history(url, qq):
     try:
         session = SESSION()
-        res = session.query(EnglishRecord).filter_by(url=url).first()
+        res = session.query(EnglishRecord).filter_by(url=url, user_id=qq).first()
         return res
     except Exception as e:
         pass
@@ -72,7 +72,14 @@ def count_recorded(user_id):
         word_count = sum([record.word_count for record in res])
         days_this_month = len(res)
         days_total = res[-1].days
-        return word_count, days_this_month, days_total
+        # 逆序后排除第一个
+        day_seq = 1
+        for record in res[::-1][1:]:
+            if record.record_datetime + 86399 * day_seq >= datetime(year=d.year, month=d.month, day=d.day):
+                day_seq += 1
+            else:
+                break
+        return word_count, days_this_month, days_total, day_seq
     except Exception as e:
         pass
 
