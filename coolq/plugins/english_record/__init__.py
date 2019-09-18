@@ -97,8 +97,8 @@ async def _(ctx):
         except Exception as e:
             bot.logger.error(e)
         word_count, days_this_month, days_total, day_seq = count_recorded(str(user_id))
-        msg = "打卡统计：\n本月单词数量: {}\n本月打卡天数: {}\n总打卡天数: {}\n连续天数：{}\n统计图: {}\n".format(
-            word_count, days_this_month, days_total, day_seq, "http://114.55.252.170:8081/render.html") \
+        msg = "打卡统计：\n本月单词数量: {}\n连续天数：{}\n".format(
+            word_count, days_this_month, days_total, day_seq) \
               + "[CQ:at,qq={}]".format(user_id)
         render_english_record_data(get_statistics_data())
         await bot.send(ctx, message=msg)
