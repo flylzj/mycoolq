@@ -62,10 +62,11 @@ def count_recorded(user_id):
     try:
         session = SESSION()
         d = datetime.today().today()
+        start_d = 1567308926
         month_start_d = datetime(year=d.year, month=d.month, day=1).timetuple()
         month_end_d = datetime(year=d.year, month=d.month, day=calendar.monthrange(year=d.year, month=d.month)[-1]).timetuple()
         res = session.query(EnglishRecord).filter(
-            time.mktime(month_start_d) < EnglishRecord.record_datetime,
+            start_d < EnglishRecord.record_datetime,
             time.mktime(month_end_d) + 86399 > EnglishRecord.record_datetime,  # 当天时间,
             EnglishRecord.user_id == user_id
         ).all()
