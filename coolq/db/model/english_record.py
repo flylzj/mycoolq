@@ -74,12 +74,12 @@ def count_recorded(user_id):
         days_this_month = len(res)
         days_total = res[-1].days
         # 逆序后排除第一个
-        day_seq = 1
-        for record in res[::-1][1:]:
-            if record.record_datetime + 86399 * day_seq >= datetime(year=d.year, month=d.month, day=d.day).timestamp():
-                day_seq += 1
-            else:
-                break
+        day_seq = len(res)
+        # for record in res[::-1][1:]:
+        #     if record.record_datetime + 86399 * day_seq >= datetime(year=d.year, month=d.month, day=d.day).timestamp():
+        #         day_seq += 1
+        #     else:
+        #         break
         return word_count, days_this_month, days_total, day_seq
     except Exception as e:
         print(e)
