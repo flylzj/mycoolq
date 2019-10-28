@@ -7,13 +7,13 @@ from nonebot.log import logger
 
 
 # @nonebot.scheduler.scheduled_job('cron', hour="*", minute='*', second="1-59/30")
-@nonebot.scheduler.scheduled_job('cron', hour="0", minute='0')
-async def _():
-    bot = nonebot.get_bot()
-
-    text = "阿向！这是刘崽给你准备的礼物，希望你能喜欢，生日快乐~\nhttps://www.bilibili.com/video/av70857887"
-    await bot.send_private_msg(user_id=1449902124, message=text)
-    # await bot.send_group_msg(group_id=BIG_FINGER_GROUP_ID, message=text)
+# @nonebot.scheduler.scheduled_job('cron', hour="0", minute='0')
+# async def _():
+#     bot = nonebot.get_bot()
+#
+#     text = "阿向！这是刘崽给你准备的礼物，希望你能喜欢，生日快乐~\nhttps://www.bilibili.com/video/av70857887"
+#     await bot.send_private_msg(user_id=1449902124, message=text)
+#     await bot.send_group_msg(group_id=BIG_FINGER_GROUP_ID, message=text)
     # try:
     #     records = get_recorded_today()
     #     recorded_users = [int(record.user_id) for record in records]
