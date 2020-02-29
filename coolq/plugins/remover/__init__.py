@@ -1,14 +1,15 @@
-from nonebot import get_bot
-from config import REMOVER_GROUPS
+from nonebot import get_bot, on_notice, NoticeSession, on_command, CommandSession, on_request, RequestSession
 import nonebot
 import time
+from config import MANAGING_GROUPS
+from coolq.db.model.new_member_captcha import gen_code, insert_new_captcha, verify, find_out_date
 
 
 # remove a member every day
 @nonebot.scheduler.scheduled_job('cron', day="1-31/1")
-async def _():
+async def remove():
     bot = get_bot()
-    for g in REMOVER_GROUPS:
+    for g in MANAGING_GROUPS:
         await _remove(bot, g)
 
 async def _remove(bot: nonebot.NoneBot, group_id: str):
@@ -20,5 +21,78 @@ async def _remove(bot: nonebot.NoneBot, group_id: str):
         # await bot.set_group_kick(group_id=group_id, user_id=m.get('user_id'), reject_add_request=False)
         message = "群友 {} 由于一个月未发言已被移出该群".format(m.get('nickname'))
         # await bot.send_group_msg(group_id=group_id, message=message)
+
+
+# ask some question to judge if he is a bot
+@on_notice('group_increase')
+async def new_member(session: NoticeSession):
+    group_id = session.ctx['group_id']
+    if session.ctx['group_id'] in MANAGING_GROUPS:
+        code = gen_code()
+        user_id = session.ctx['user_id']
+        new = "[CQ:at,qq={}]".format(user_id)
+        message = "{}欢迎入群！本群不留广告机器人，因此您需要在5分钟的时间内完成人机验证。请尽快进行人机验证，以防被T！。请复制我接下来的消息进行验证".format(new)
+        message2 = "验证码 {}".format(code)
+        insert_new_captcha(
+            group_id=group_id,
+            user_id=user_id,
+            verify_code=code,
+            insert_time=int(time.time())
+        )
+        await session.send(message)
+        await session.send(message2)
+
+
+@on_command('captcha', aliases=('验证码', ), only_to_me=False)
+async def verify_captcha(session: CommandSession):
+    group_id = session.ctx['group_id']
+    # not group message
+    if session.ctx['message_type'] != 'group' or group_id not in MANAGING_GROUPS:
+        return
+    code = session.get('code', prompt='验证码错误')
+    await session.send(verify(group_id, session.ctx['user_id'], code))
+
+
+@verify_captcha.args_parser
+async def _(session: CommandSession):
+    stripped_arg = session.current_arg_text.strip()
+
+    if session.is_first_run:
+        if stripped_arg:
+            session.state['code'] = stripped_arg
+        return
+
+    if not stripped_arg:
+        session.pause('请输入正确的验证码')
+    session.state[session.current_key] = stripped_arg
+
+
+# check if any captcha out of date
+@nonebot.scheduler.scheduled_job('cron', minute="0-59/1")
+async def check_out_date():
+    session, members = find_out_date()
+    if not members:
+        return
+    bot = get_bot()
+    for member in members:
+        # check is this member still in this group
+        member_info = await bot.get_group_member_info(group_id=member.group_id, user_id=members.user_id)
+        if member_info.get('user_id'):
+            message = "{}由于五分钟内没有发送验证码被移出该群".format(member.user_id)
+            await bot.set_group_kick(group_id=member.group_id, user_id=member.user_id)
+            await bot.send_group_msg(group_id=member.group_id, message=message)
+        member.is_verify = 1
+        session.commit()
+    session.close()
+
+
+@on_request('group')
+async def apply(session: RequestSession):
+    if session.ctx['group_id'] in MANAGING_GROUPS:
+        await session.approve()
+
+
+
+
 
 

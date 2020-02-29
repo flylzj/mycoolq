@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 # db
-ENGINE = create_engine('sqlite:///./data/data.db')
+ENGINE = create_engine('sqlite:///./data/data.db', echo=True)
 
 SESSION = sessionmaker(bind=ENGINE)
 ###
@@ -14,9 +14,10 @@ SESSION = sessionmaker(bind=ENGINE)
 SUPERUSERS = {1449902124}
 
 ## remover manager
-REMOVER_GROUPS = [
-    "855508068",
-    "97795387"
+MANAGING_GROUPS = [
+    855508068,
+    97795387,
+    654137970
 ]
 
 MOVIE_URL = "http://www.coupling.pw"
