@@ -76,7 +76,7 @@ async def check_out_date():
     bot = get_bot()
     for member in members:
         # check is this member still in this group
-        member_info = await bot.get_group_member_info(group_id=member.group_id, user_id=members.user_id)
+        member_info = await bot.get_group_member_info(group_id=member.group_id, user_id=member.user_id)
         if member_info.get('user_id'):
             message = "{}由于五分钟内没有发送验证码被移出该群".format(member.user_id)
             await bot.set_group_kick(group_id=member.group_id, user_id=member.user_id)
