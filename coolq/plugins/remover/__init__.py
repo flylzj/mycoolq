@@ -18,9 +18,9 @@ async def _remove(bot: nonebot.NoneBot, group_id: str):
     long_time_no_speak_member = list(filter(long_time_no_speak_func, members))
     if long_time_no_speak_member:
         m = long_time_no_speak_member.pop()
-        # await bot.set_group_kick(group_id=group_id, user_id=m.get('user_id'), reject_add_request=False)
-        message = "群友 {} 由于一个月未发言已被移出该群".format(m.get('nickname'))
-        # await bot.send_group_msg(group_id=group_id, message=message)
+        await bot.set_group_kick(group_id=group_id, user_id=m.get('user_id'), reject_add_request=False)
+        message = "群友 {} 由于超过2592000秒未发言已被移出该群".format(m.get('nickname'))
+        await bot.send_group_msg(group_id=group_id, message=message)
 
 
 # ask some question to judge if he is a bot
