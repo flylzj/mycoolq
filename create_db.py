@@ -2,6 +2,7 @@
 from config import ENGINE
 # 显式导入table才能create
 from coolq.db.model.new_member_captcha import NewMemberCaptcha
+from coolq.db.model.python_lib_helper import PythonLibs
 from coolq.db.model import Base
 
 def init_db(new=False):

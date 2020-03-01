@@ -22,6 +22,12 @@ MANAGING_GROUPS = [
 
 QQ_GROUP_CAPTCHA_HINT_IMG = "https://flythief.cn/qq-group-captcha-hint.png"
 
+## python lib helper
+
+LIB_URL = "https://docs.python.org/zh-cn/3.8/library/index.html"
+
+LIB_ROOT_URL = "https://docs.python.org/zh-cn/3.8/library/"
+
 MOVIE_URL = "http://www.coupling.pw"
 
 COMMAND_START = {'', '/'}
