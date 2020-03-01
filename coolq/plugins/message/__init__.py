@@ -11,5 +11,11 @@ async def handle_group_message(ctx: Context_T):
     group_id = ctx.get('group_id')
     user_id = ctx.get('user_id')
     if is_verifying(group_id, user_id):
-        message = "请输入正确的验证格式为：验证码 123456"
-        await bot.send(ctx, message)
+        try:
+            from_message = ctx.get('message')
+            if not from_message.strip('验证码 ').isdigit():
+                message = "请输入正确的验证格式为：验证码 123456"
+                await bot.send(ctx, message)
+        except Exception as e:
+            bot.logger.info(e)
+            pass
