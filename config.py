@@ -28,6 +28,8 @@ LIB_URL = "https://docs.python.org/zh-cn/3.8/library/index.html"
 
 LIB_ROOT_URL = "https://docs.python.org/zh-cn/3.8/library/"
 
+THIRD_LIB_ROOT_URL = "https://pypi.org/project/"
+
 MOVIE_URL = "http://www.coupling.pw"
 
 COMMAND_START = {'', '/'}
