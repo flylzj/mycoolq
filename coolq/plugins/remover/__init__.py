@@ -1,7 +1,7 @@
 from nonebot import get_bot, on_notice, NoticeSession, on_command, CommandSession, on_request, RequestSession
 import nonebot
 import time
-from config import MANAGING_GROUPS
+from config import MANAGING_GROUPS, QQ_GROUP_CAPTCHA_HINT_IMG
 from coolq.db.model.new_member_captcha import gen_code, insert_new_captcha, verify, find_out_date
 
 
@@ -31,7 +31,7 @@ async def new_member(session: NoticeSession):
         code = gen_code()
         user_id = session.ctx['user_id']
         new = "[CQ:at,qq={}]".format(user_id)
-        message = "{}欢迎入群！本群不留广告机器人，因此您需要在5分钟的时间内完成人机验证。请尽快进行人机验证，以防被T！。请复制我接下来的消息进行验证".format(new)
+        message = "{}欢迎入群！本群不留广告机器人，请在五分钟内复制我的下一条消息并发送，否则将会被移出该群！。如有疑惑，可点击{}查看发送格式".format(new, QQ_GROUP_CAPTCHA_HINT_IMG)
         message2 = "验证码 {}".format(code)
         insert_new_captcha(
             group_id=group_id,

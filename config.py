@@ -20,6 +20,8 @@ MANAGING_GROUPS = [
     654137970
 ]
 
+QQ_GROUP_CAPTCHA_HINT_IMG = "https://flythief.cn/qq-group-captcha-hint.png"
+
 MOVIE_URL = "http://www.coupling.pw"
 
 COMMAND_START = {'', '/'}
