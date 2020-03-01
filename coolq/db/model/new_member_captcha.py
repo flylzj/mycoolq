@@ -38,7 +38,7 @@ def insert_new_captcha(**kwargs):
         session.add(nmc)
         session.commit()
     except Exception as e:
-        print(e)
+        pass
     finally:
         session.close()
 
@@ -48,7 +48,6 @@ def search_captcha(**kwargs):
     try:
         return session.query(NewMemberCaptcha).filter_by(**kwargs).first()
     except Exception as e:
-        print(e)
         return None
     finally:
         session.close()
@@ -66,7 +65,6 @@ def verify(group_id, user_id, code):
         session.commit()
         return "验证成功, 我是文档小助手，试着对我说:lib xx来查询标准库"
     except Exception as e:
-        print(e)
         return str(e)
     finally:
         session.close()
@@ -80,7 +78,6 @@ def find_out_date():
             NewMemberCaptcha.is_verify == 0
         ).all()
     except Exception as e:
-        print(e)
         return session, []
 
 

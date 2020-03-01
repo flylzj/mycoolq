@@ -3,6 +3,8 @@ import nonebot
 import os
 import config
 from create_db import init_db
+from nonebot.log import logger
+import logging
 
 
 if __name__ == '__main__':

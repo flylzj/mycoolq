@@ -25,7 +25,6 @@ def find_lib(lib_name):
     try:
         return session.query(PythonLibs).filter_by(name=lib_name).first()
     except Exception as e:
-        print(e)
         return None
     finally:
         session.close()
@@ -43,7 +42,7 @@ def insert_lib(**kwargs):
             session.add(lib)
         session.commit()
     except Exception as e:
-        print(e)
+        pass
     finally:
         session.close()
 
