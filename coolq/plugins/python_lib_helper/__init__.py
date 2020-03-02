@@ -4,7 +4,7 @@ import nonebot
 import aiohttp
 from bs4 import BeautifulSoup
 from coolq.db.model.python_lib_helper import insert_lib, find_lib
-from config import LIB_URL, LIB_ROOT_URL, THIRD_LIB_ROOT_URL
+from config import LIB_URL, LIB_ROOT_URL, THIRD_LIB_ROOT_URL, PYTHON_TUTORIALS_URL
 
 
 @on_command('lib', aliases=('标准库',), only_to_me=False)
@@ -78,6 +78,10 @@ async def spider_third_lib(lib_name) -> str:
                 return str(e)
 
 
+@on_command('tutorials', aliases=('教程传送门',), only_to_me=False)
+async def tutorials(session: CommandSession):
+    message = "教程来啦：{}".format(PYTHON_TUTORIALS_URL)
+    await session.send(message)
 
 
 if __name__ == '__main__':
