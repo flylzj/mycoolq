@@ -31,7 +31,7 @@ async def new_member(session: NoticeSession):
         user_id = session.ctx['user_id']
         code = gen_code()
         new = "[CQ:at,qq={}]".format(user_id)
-        message = "{} 欢迎入群！\n请在五分钟内回复“验证码 {}”\n否则会被视为机器人并移出本群。".format(new, code)
+        message = "{} 欢迎入群！\n请在五分钟内回复\n“验证码 {}”\n否则会被视为机器人并移出本群。".format(new, code)
         insert_new_captcha(
             group_id=group_id,
             user_id=user_id,
