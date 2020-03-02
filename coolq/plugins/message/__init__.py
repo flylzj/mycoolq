@@ -14,7 +14,8 @@ async def handle_group_message(ctx: Context_T):
         try:
             from_message: str = str(ctx.get('message'))
             if not from_message.startswith('验证码 ') or not from_message.strip('验证码 ').isdigit():
-                message = "请输入正确的验证格式为：验证码 123456(注意中间的空格)"
+                new = "[CQ:at,qq={}]".format(user_id)
+                message = "{}请输入正确的验证格式为：验证码 123456(注意中间的空格)".format(new)
                 await bot.send(ctx, message)
         except Exception as e:
             bot.logger.info(e)
