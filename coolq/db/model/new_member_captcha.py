@@ -58,7 +58,11 @@ def verify(group_id, user_id, code):
     try:
         nmc = session.query(NewMemberCaptcha).filter_by(group_id=group_id, user_id=user_id, is_verify=0).first()
         if not nmc:
-            return "没有你的验证码"
+            sql = '''
+            SELECT * FROM new_member_captcha WHERE verify_code={}
+            '''.format(code)
+            res = session.execute(sql)
+            return str(res)
         if code != str(nmc.verify_code):
             return "验证码错误"
         nmc.is_verify = 1
