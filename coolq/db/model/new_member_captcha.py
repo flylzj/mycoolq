@@ -1,5 +1,5 @@
 # coding: utf-8
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, Integer, String
 from config import SESSION
 from . import Base
 from random import randint
@@ -20,6 +20,13 @@ class NewMemberCaptcha(Base):
     insert_time = Column(Integer, nullable=False)
     # is verify（0 is not verify, 1 is verified）
     is_verify = Column(Integer, nullable=False, default=0)
+
+
+class Flag(Base):
+    __tablename__ = 'flag'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    flag = Column(String(256))
 
 
 def gen_code():
@@ -59,10 +66,13 @@ def verify(group_id, user_id, code):
         nmc = session.query(NewMemberCaptcha).filter_by(group_id=group_id, user_id=user_id, is_verify=0).first()
         if not nmc:
             sql = '''
-            SELECT * FROM new_member_captcha WHERE verify_code={}
+            SELECT id FROM new_member_captcha WHERE verify_code={}
             '''.format(code)
             res = session.execute(sql)
-            return str(res)
+            message = ""
+            for r in res:
+                message += str(r)
+            return message
         if code != str(nmc.verify_code):
             return "验证码错误"
         nmc.is_verify = 1
