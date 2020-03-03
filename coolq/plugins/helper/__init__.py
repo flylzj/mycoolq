@@ -3,12 +3,14 @@ from nonebot import on_command, CommandSession
 
 
 @on_command('help', aliases=("帮助"), only_to_me=False)
-def helper(session: CommandSession):
+async def helper(session: CommandSession):
     message = '''
-    功能列表
-    lib---查看python标准库
-    roll---随机骰子点数
+    命令列表
+    标准库---查看python标准库
+    肉---随机骰子点数
+    教程传送门---查看推荐教程
+    试着发送"教程传送门"
     '''
-    session.send(message)
+    await session.send(message)
 
 
