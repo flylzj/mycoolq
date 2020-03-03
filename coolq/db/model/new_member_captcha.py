@@ -63,7 +63,7 @@ def verify(group_id, user_id, code):
             return "验证码错误"
         nmc.is_verify = 1
         session.commit()
-        return "验证成功, 我是文档小助手，试着对我说:lib xx来查询标准库"
+        return "验证成功, 试着对我说:help"
     except Exception as e:
         return str(e)
     finally:
