@@ -95,10 +95,7 @@ def find_out_date():
         return session, []
 
 def is_verifying(group_id, user_id):
-    nmc = search_captcha(group_id=group_id, user_id=user_id, is_verify=0)
-    if nmc:
-        return True
-    return False
+    return search_captcha(group_id=group_id, user_id=user_id, is_verify=0)
 
 
 
