@@ -19,4 +19,4 @@ async def handle_group_message(ctx: Context_T):
                 await bot.send(ctx, message)
         except Exception as e:
             bot.logger.info(e)
-            pass
+            await bot.send(ctx, str(e))
