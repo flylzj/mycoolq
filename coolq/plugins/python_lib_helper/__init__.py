@@ -44,7 +44,9 @@ async def _(session: CommandSession):
 async def lang_command(session: CommandSession):
     lang_ref_name = session.get_optional('lang')
     if not lang_ref_name:
-        message = "语言参考:\n镜像链接:{}\n官方链接:{}".format(LOCAL_LANG_REF_ROOT_URL, LANG_REF_URL)
+        titles = list(set([lang.title for lang in find_lang_ref(True, **{})]))
+        titles_text = ",".join([title for title in titles])
+        message = "语言参考:\n镜像链接:{}\n包含内容:{}\n试着发送{}".format(LOCAL_LANG_REF_ROOT_URL, titles_text, "lang " + titles[0])
         await session.send(message)
         return
 
