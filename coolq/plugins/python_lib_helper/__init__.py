@@ -49,7 +49,6 @@ async def lang_command(session: CommandSession):
         message = "语言参考:\n镜像链接:{}\n包含内容:{}\n试着发送{}".format(LOCAL_LANG_REF_ROOT_URL, titles_text, "lang " + titles[0])
         await session.send(message)
         return
-
     lang_ref = find_lang_ref(many=True, title1=lang_ref_name)
     if lang_ref:
         href = lang_ref[0].url.split('#')[0].replace(DOC_ROOT_URL, LOCAL_DOC_ROOT_URL)
@@ -75,7 +74,7 @@ async def lang_command_parser(session: CommandSession):
     session.state[session.current_key] = stripped_arg
 
 
-@nonebot.scheduler.scheduled_job('cron', minute="0-59/1")
+@nonebot.scheduler.scheduled_job('cron', day="1-31/1")
 async def spider_lib():
     async for lib in spider_standard_lib():
         insert_lib(**lib)
