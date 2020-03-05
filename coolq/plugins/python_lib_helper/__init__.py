@@ -16,7 +16,7 @@ async def lib_command(session: CommandSession):
         await session.send(message)
     else:
         # message = await spider_third_lib(lib_name)
-        message = "{}未找到".format(lib_name)
+        message = "{}未找到".format(lib_name if lib_name else "")
         await session.send(message)
 
 
