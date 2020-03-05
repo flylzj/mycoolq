@@ -4,12 +4,16 @@ import nonebot
 import aiohttp
 from bs4 import BeautifulSoup
 from coolq.db.model.python_lib_helper import insert_lib, find_lib
-from config import LIB_URL, LIB_ROOT_URL, THIRD_LIB_ROOT_URL, PYTHON_TUTORIALS_URL
+from config import LIB_URL, LIB_ROOT_URL, THIRD_LIB_ROOT_URL, PYTHON_TUTORIALS_URL, LOCAL_LIB_ROOT_URL
 
 
 @on_command('lib', aliases=('标准库',), only_to_me=False)
 async def lib_command(session: CommandSession):
     lib_name = session.get_optional('lib')
+    if not lib_name:
+        message = "标准库链接:\n镜像链接:{}\n官方链接:{}".format(LIB_ROOT_URL, LOCAL_LIB_ROOT_URL)
+        await session.send(message)
+        return
     lib = find_lib(lib_name)
     if lib:
         message = "{}链接：{}".format(lib.comment, lib.url)
