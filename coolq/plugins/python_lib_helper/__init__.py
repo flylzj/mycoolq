@@ -9,7 +9,7 @@ from config import LIB_URL, LIB_ROOT_URL, THIRD_LIB_ROOT_URL, PYTHON_TUTORIALS_U
 
 @on_command('lib', aliases=('标准库',), only_to_me=False)
 async def lib_command(session: CommandSession):
-    lib_name = session.get('lib', prompt='标准库未找到')
+    lib_name = session.get_optional('lib')
     lib = find_lib(lib_name)
     if lib:
         message = "{}链接：{}".format(lib.comment, lib.url)
