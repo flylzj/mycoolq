@@ -4,14 +4,14 @@ import nonebot
 import aiohttp
 from bs4 import BeautifulSoup
 from coolq.db.model.python_lib_helper import insert_lib, find_lib
-from config import LIB_URL, LIB_ROOT_URL, THIRD_LIB_ROOT_URL, PYTHON_TUTORIALS_URL, LOCAL_LIB_ROOT_URL
+from config import LIB_URL, LIB_ROOT_URL, THIRD_LIB_ROOT_URL, PYTHON_TUTORIALS_URL, LOCAL_LIB_ROOT_URL, LANG_REF_ROOT_URL, LOCAL_LANG_REF_ROOT_URL
 
 
 @on_command('lib', aliases=('标准库',), only_to_me=False)
 async def lib_command(session: CommandSession):
     lib_name = session.get_optional('lib')
     if not lib_name:
-        message = "标准库链接:\n镜像链接:{}\n官方链接:{}".format(LIB_ROOT_URL, LOCAL_LIB_ROOT_URL)
+        message = "标准库链接:\n镜像链接:{}\n官方链接:{}".format(LOCAL_LIB_ROOT_URL, LIB_ROOT_URL)
         await session.send(message)
         return
     lib = find_lib(lib_name)
@@ -36,6 +36,12 @@ async def _(session: CommandSession):
     if not stripped_arg:
         session.pause('请输入正确的标准库名称')
     session.state[session.current_key] = stripped_arg
+
+
+@on_command('lang', aliases=('语言参考',), only_to_me=False)
+async def lang_command(session: CommandSession):
+    message = "语言参考:\n镜像链接:{}\n官方链接:{}".format(LOCAL_LANG_REF_ROOT_URL, LANG_REF_ROOT_URL)
+    await session.send(message)
 
 
 @nonebot.scheduler.scheduled_job('cron', day="1-31/1")
