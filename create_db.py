@@ -10,6 +10,7 @@ def init_db(new=False):
         Base.metadata.drop_all(ENGINE)
     Base.metadata.create_all(ENGINE)
 
+
 if __name__ == '__main__':
     Base.metadata.drop_all(ENGINE)
     Base.metadata.create_all(ENGINE)

@@ -47,7 +47,7 @@ async def verify_captcha(session: CommandSession):
     # not group message
     if session.ctx['message_type'] != 'group' or group_id not in MANAGING_GROUPS:
         return
-    code = session.get('code', prompt='验证码错误')
+    code = session.get_optional('code')
     await session.send(verify(group_id, session.ctx['user_id'], code))
 
 
