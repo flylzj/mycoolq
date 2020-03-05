@@ -36,9 +36,9 @@ LOCAL_LIB_URL = "https://coolq.flythief.cn/python-docs/library/index.html"
 
 LOCAL_LIB_ROOT_URL = "https://coolq.flythief.cn/python-docs/"
 
-LANG_REF_URL = "https://docs.python.org/zh-cn/3/reference/index.html"
+LANG_REF_URL = "https://docs.python.org/zh-cn/3.8/reference/index.html"
 
-LANG_REF_ROOT_URL = "https://docs.python.org/zh-cn/3/reference/"
+LANG_REF_ROOT_URL = "https://docs.python.org/zh-cn/3.8/reference/"
 
 LOCAL_LANG_REF_ROOT_URL = "https://coolq.flythief.cn/python-docs/reference/index.html"
 
