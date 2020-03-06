@@ -15,5 +15,3 @@ async def roll_command(session: CommandSession):
         message = "你肉到了{}点"
         insert_point(group_id=group_id, user_id=user_id, point=roll, roll_time=int(time.time()))
         await session.send(message=message.format(roll))
-    else:
-        await session.send(message="超过次数")
