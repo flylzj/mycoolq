@@ -16,8 +16,7 @@ SUPERUSERS = {1449902124}
 ## remover manager
 MANAGING_GROUPS = [
     855508068,
-    97795387,
-    654137970
+    97795387
 ]
 
 QQ_GROUP_CAPTCHA_HINT_IMG = "https://flythief.cn/qq-group-captcha-hint.png"
