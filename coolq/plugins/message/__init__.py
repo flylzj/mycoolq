@@ -3,6 +3,7 @@ import nonebot
 from nonebot.typing import Context_T
 from coolq.db.model.new_member_captcha import is_verifying
 from config import QQ_GROUP_CAPTCHA_HINT_IMG
+from coolq.util.coolq import at_someone
 
 bot = nonebot.get_bot()
 
@@ -16,8 +17,7 @@ async def handle_group_message(ctx: Context_T):
             from_message: str = str(ctx.get('message'))
             if not from_message.startswith('验证码 ') or not from_message.strip('验证码 ').isdigit():
                 code = nmc.verify_code
-                new = "[CQ:at,qq={}]".format(user_id)
-                message = "{}请输入正确的验证格式为：验证码 {}(注意中间的空格)\n可以点击链接查看格式{}".format(new, code, QQ_GROUP_CAPTCHA_HINT_IMG)
+                message = "{}请输入正确的验证格式为：验证码 {}(注意中间的空格)\n可以点击链接查看格式{}".format(at_someone, code, QQ_GROUP_CAPTCHA_HINT_IMG)
                 await bot.send(ctx, message)
         except Exception as e:
             bot.logger.info(e)

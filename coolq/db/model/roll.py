@@ -1,9 +1,10 @@
 # coding: utf-8
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, func, desc
 from config import SESSION
 from . import Base
 import time
 from datetime import datetime
+from coolq.util.coolq import at_someone
 
 
 class RollHistory(Base):
@@ -29,6 +30,47 @@ def count_toady_roll(**kwargs):
         return res.count()
     except Exception as e:
         return 0
+    finally:
+        session.close()
+
+
+def count_roll(group_id):
+    most_point_user, most_point = count_most_point(group_id)
+    most_times_user, most_times = count_most_times(group_id)
+    message = ""
+    if not most_point_user:
+        message += "本群暂无点数之王\n"
+    else:
+        message += f"本群点数之王:{at_someone(most_point_user)}\n已掷骰子点数总和:{most_point}"
+    if not most_times_user:
+        message += "本群暂无次数之王\n"
+    else:
+        message += f"本群次数之王:{at_someone(most_times_user)}\n已掷骰子次数:{most_times}"
+    return message
+
+# 最多点数
+def count_most_point(group_id):
+    session = SESSION()
+    try:
+        res = session.query(RollHistory.user_id, func.sum(RollHistory.point).label('s')).filter_by(group_id=group_id).group_by(RollHistory.user_id).order_by(desc('s')).first()
+        if res:
+            return res
+        return 0, 0
+    except Exception as e:
+        return 0, 0
+    finally:
+        session.close()
+
+# 最多次数
+def count_most_times(group_id):
+    session = SESSION()
+    try:
+        res = session.query(RollHistory.user_id, func.count(RollHistory.user_id).label('t')).filter_by(group_id=group_id).group_by(RollHistory.user_id).order_by(desc('t')).first()
+        if res:
+            return res
+        return 0, 0
+    except Exception as e:
+        return 0, 0
     finally:
         session.close()
 

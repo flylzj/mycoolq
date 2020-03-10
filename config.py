@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 # db
-ENGINE = create_engine('sqlite:///./data/data.db')
+ENGINE = create_engine('sqlite:///./data/data.db', echo=True)
 
 SESSION = sessionmaker(bind=ENGINE)
 ###
