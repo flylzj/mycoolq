@@ -77,7 +77,7 @@ def verify(group_id, user_id, code):
             return "验证码错误"
         nmc.is_verify = 1
         session.commit()
-        return "验证成功, 试着对我说:help"
+        return "验证成功, 环境问题参考群文件“从零开始的Python环境配置.rar”。Python安装包、VSCode安装包、Pycharm安装包都可以在群文件找到，按需自取。试着对我说:help"
     except Exception as e:
         return str(e)
     finally:
