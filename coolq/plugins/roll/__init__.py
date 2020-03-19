@@ -17,7 +17,7 @@ async def roll_command(session: CommandSession):
         insert_point(group_id=group_id, user_id=user_id, point=roll, roll_time=int(time.time()))
         await session.send(message=message.format(roll))
     else:
-        await session.send(message='一天只能肉三次哦~')
+        await session.send(message='一天只能肉一次哦~')
 
 
 @on_command('rollcount', aliases=('肉统计', ), only_to_me=False)
