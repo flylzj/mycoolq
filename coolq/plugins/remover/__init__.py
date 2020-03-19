@@ -38,17 +38,25 @@ async def new_member(session: NoticeSession):
             verify_code=code,
             insert_time=int(time.time())
         )
+        await session.bot.set_group_ban(group_id=group_id, user_id=user_id, duration=300)
         await session.send(message)
 
 
 @on_command('captcha', aliases=('验证码', ), only_to_me=False)
 async def verify_captcha(session: CommandSession):
-    group_id = session.ctx['group_id']
+    # group_id = session.ctx['group_id']
     # not group message
-    if session.ctx['message_type'] != 'group' or group_id not in MANAGING_GROUPS:
-        return
+    # if session.ctx['message_type'] != 'group' or group_id not in MANAGING_GROUPS:
+    #     return
     code = session.get_optional('code')
-    await session.send(verify(group_id, session.ctx['user_id'], code))
+    user_id = session.ctx['user_id']
+    group_id = verify(user_id, code)
+    if group_id:
+        message = "验证成功, 环境问题参考群文件“从零开始的Python环境配置.rar”。Python安装包、VSCode安装包、Pycharm安装包都可以在群文件找到，按需自取。试着对我说:help"
+        await session.bot.set_group_ban(group_id=group_id, user_id=user_id, duration=0)
+    else:
+        message = "验证码错误或者不存在"
+    await session.send(message)
 
 
 @verify_captcha.args_parser

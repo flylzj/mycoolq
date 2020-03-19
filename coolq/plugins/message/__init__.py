@@ -7,11 +7,10 @@ from coolq.util.coolq import at_someone
 
 bot = nonebot.get_bot()
 
-@bot.on_message('group')
-async def handle_group_message(ctx: Context_T):
-    group_id = ctx.get('group_id')
+@bot.on_message('private')
+async def handle_captcha_message(ctx: Context_T):
     user_id = ctx.get('user_id')
-    nmc = is_verifying(group_id, user_id)
+    nmc = is_verifying(user_id)
     if nmc:
         try:
             from_message: str = str(ctx.get('message'))

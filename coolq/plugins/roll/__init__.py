@@ -11,7 +11,7 @@ async def roll_command(session: CommandSession):
     group_id = session.ctx.get('group_id') if session.ctx.get('group_id') else 0
     user_id = session.ctx.get('user_id')
     count = count_toady_roll(group_id=group_id, user_id=user_id)
-    if count < 3 or group_id not in MANAGING_GROUPS:
+    if count < 1 or group_id not in MANAGING_GROUPS:
         roll = randint(-6, 6)
         message = "你肉到了{}点"
         insert_point(group_id=group_id, user_id=user_id, point=roll, roll_time=int(time.time()))

@@ -60,10 +60,12 @@ def search_captcha(**kwargs):
         session.close()
 
 
-def verify(group_id, user_id, code):
+def verify(user_id, code):
     session = SESSION()
     try:
-        nmc = session.query(NewMemberCaptcha).filter_by(group_id=group_id, user_id=user_id, is_verify=0).first()
+        if not code.isdigit():
+            return None
+        nmc = session.query(NewMemberCaptcha).filter_by(user_id=user_id, is_verify=0, verify_code=int(code)).first()
         if not nmc:
             # sql = '''
             # SELECT id FROM new_member_captcha WHERE verify_code={}
@@ -72,14 +74,14 @@ def verify(group_id, user_id, code):
             # message = ""
             # for r in res:
             #     message += str(r)
-            return "没有你的验证码"
-        if code != str(nmc.verify_code):
-            return "验证码错误"
+            return None
+        # if code != str(nmc.verify_code):
+        #     return "验证码错误"
         nmc.is_verify = 1
         session.commit()
-        return "验证成功, 环境问题参考群文件“从零开始的Python环境配置.rar”。Python安装包、VSCode安装包、Pycharm安装包都可以在群文件找到，按需自取。试着对我说:help"
+        return nmc.group_id
     except Exception as e:
-        return str(e)
+        return None
     finally:
         session.close()
 
@@ -94,8 +96,8 @@ def find_out_date():
     except Exception as e:
         return session, []
 
-def is_verifying(group_id, user_id):
-    return search_captcha(group_id=group_id, user_id=user_id, is_verify=0)
+def is_verifying(user_id):
+    return search_captcha(user_id=user_id, is_verify=0)
 
 
 
