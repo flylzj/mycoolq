@@ -29,12 +29,13 @@ async def roll_count_command(session: CommandSession):
     if not most_point_user:
         message += "本群暂无点数之王\n"
     else:
-
-        message += f"本群点数之王:{await get_group_user_name(group_id, most_point_user)}\n已掷骰子点数总和:{most_point}\n"
+        name = await get_group_user_name(group_id, most_point_user)
+        message += f"本群点数之王:{name}\n已掷骰子点数总和:{most_point}\n"
     if not most_times_user:
         message += "本群暂无次数之王\n"
     else:
-        message += f"本群次数之王:{await get_group_user_name(group_id, most_times_user)}\n已掷骰子次数:{most_times}\n"
+        name = await get_group_user_name(group_id, most_times_user)
+        message += f"本群次数之王:{name}\n已掷骰子次数:{most_times}\n"
     await session.send(message=message)
 
 
