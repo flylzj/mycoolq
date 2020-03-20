@@ -4,6 +4,7 @@ from random import randint
 from coolq.db.model.roll import count_toady_roll, insert_point, count_roll
 import time
 from config import MANAGING_GROUPS
+from coolq.util.coolq import get_group_user_name
 
 
 @on_command('roll', aliases=('肉', ), only_to_me=False)
@@ -23,5 +24,17 @@ async def roll_command(session: CommandSession):
 @on_command('rollcount', aliases=('肉统计', ), only_to_me=False)
 async def roll_count_command(session: CommandSession):
     group_id = session.ctx.get('group_id') if session.ctx.get('group_id') else 0
-    message = count_roll(group_id)
+    most_point_user, most_point, most_times_user, most_times = count_roll(group_id)
+    message = ""
+    if not most_point_user:
+        message += "本群暂无点数之王\n"
+    else:
+
+        message += f"本群点数之王:{await get_group_user_name(group_id, most_point_user)}\n已掷骰子点数总和:{most_point}\n"
+    if not most_times_user:
+        message += "本群暂无次数之王\n"
+    else:
+        message += f"本群次数之王:{await get_group_user_name(group_id, most_times_user)}\n已掷骰子次数:{most_times}\n"
     await session.send(message=message)
+
+
