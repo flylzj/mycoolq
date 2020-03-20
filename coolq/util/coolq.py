@@ -12,6 +12,6 @@ async def get_group_user_name(group_id, user_id):
         return info.get('card')
 
     if info.get('nickname'):
-        return info.get('card')
+        return info.get('nickname')
 
     return user_id
