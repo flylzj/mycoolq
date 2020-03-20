@@ -41,11 +41,11 @@ def count_roll(group_id):
     if not most_point_user:
         message += "本群暂无点数之王\n"
     else:
-        message += f"本群点数之王:{at_someone(most_point_user)}\n已掷骰子点数总和:{most_point}\n"
+        message += f"本群点数之王:{most_point_user}\n已掷骰子点数总和:{most_point}\n"
     if not most_times_user:
         message += "本群暂无次数之王\n"
     else:
-        message += f"本群次数之王:{at_someone(most_times_user)}\n已掷骰子次数:{most_times}\n"
+        message += f"本群次数之王:{most_times_user}\n已掷骰子次数:{most_times}\n"
     return message
 
 # 最多点数
