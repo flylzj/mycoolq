@@ -22,6 +22,6 @@ async def increase_day():
         increase_one(user_id)
         message = f"{d.days}天"
         try:
-            await bot.send_private_message(user_id=user_id, message=message)
+            await bot.send_private_msg(user_id=user_id, message=message)
         except Exception as e:
-            pass
+            await bot.send_private_msg(user_id=user_id, message=str(e))

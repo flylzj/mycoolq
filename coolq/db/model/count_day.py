@@ -44,6 +44,7 @@ def increase_one(user_id):
         d.days += 1
         session.commit()
     except Exception as e:
+        print(e)
         session.rollback()
     finally:
         session.close()
