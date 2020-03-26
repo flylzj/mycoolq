@@ -7,8 +7,6 @@ async def helper(session: CommandSession):
     message = '''
     命令列表
     标准库---查看python标准库
-    肉---随机骰子点数
-    肉统计---统计骰子
     教程传送门---查看推荐教程
     语言参考--查看python语言参考文档
     试着发送"教程传送门"
