@@ -29,7 +29,7 @@ async def new_member(session: NoticeSession):
     if session.ctx['group_id'] in MANAGING_GROUPS:
         # group_id = session.ctx['group_id']
         user_id = session.ctx['user_id']
-        message = f"{at_someone(user_id)}欢迎入群, 环境问题参考群文件“从零开始的Python环境配置.rar”。Python安装包、VSCode安装包、Pycharm安装包都可以在群文件找到，按需自取。试着对我说:help"
+        message = f"{at_someone(user_id)}欢迎入群, 配置环境、安装第三方库、IDLE / VSCode / Pycharm的使用、调试、运行代码等问题参考群文件“从零开始的Python环境配置.rar”。Python安装包、VSCode安装包、Pycharm安装包都可以在群文件找到，按需自取。试着对我说:help"
         # user_id = session.ctx['user_id']
         # code = gen_code()
         # new = "[CQ:at,qq={}]".format(user_id)
