@@ -11,7 +11,7 @@ from coolq.util.coolq import get_group_user_name
 async def roll_command(session: CommandSession):
     group_id = session.ctx.get('group_id') if session.ctx.get('group_id') else 0
     user_id = session.ctx.get('user_id')
-    # count = count_toady_roll(group_id=group_id, user_id=user_id)
+    count = count_toady_roll(group_id=group_id, user_id=user_id)
     if group_id not in MANAGING_GROUPS:
         roll = randint(-6, 6)
         message = "你肉到了{}点"
@@ -21,21 +21,21 @@ async def roll_command(session: CommandSession):
     #     await session.send(message='一天只能肉一次哦~')
 
 
-# @on_command('rollcount', aliases=('肉统计', ), only_to_me=False)
-# async def roll_count_command(session: CommandSession):
-#     group_id = session.ctx.get('group_id') if session.ctx.get('group_id') else 0
-#     most_point_user, most_point, most_times_user, most_times = count_roll(group_id)
-#     message = ""
-#     if not most_point_user:
-#         message += "本群暂无点数之王\n"
-#     else:
-#         name = await get_group_user_name(group_id, most_point_user)
-#         message += f"本群点数之王:{name}\n已掷骰子点数总和:{most_point}\n"
-#     if not most_times_user:
-#         message += "本群暂无次数之王\n"
-#     else:
-#         name = await get_group_user_name(group_id, most_times_user)
-#         message += f"本群次数之王:{name}\n已掷骰子次数:{most_times}\n"
-#     await session.send(message=message)
+@on_command('rollcount', aliases=('肉统计', ), only_to_me=False)
+async def roll_count_command(session: CommandSession):
+    group_id = session.ctx.get('group_id') if session.ctx.get('group_id') else 0
+    most_point_user, most_point, most_times_user, most_times = count_roll(group_id)
+    message = ""
+    if not most_point_user:
+        message += "本群暂无点数之王\n"
+    else:
+        name = await get_group_user_name(group_id, most_point_user)
+        message += f"本群点数之王:{name}\n已掷骰子点数总和:{most_point}\n"
+    if not most_times_user:
+        message += "本群暂无次数之王\n"
+    else:
+        name = await get_group_user_name(group_id, most_times_user)
+        message += f"本群次数之王:{name}\n已掷骰子次数:{most_times}\n"
+    await session.send(message=message)
 
 

@@ -25,7 +25,7 @@ async def _(session: CommandSession):
         return
 
     if not stripped_arg:
-        session.pause('要查询的城市名称不能为空呢，请重新输入')
+        session.pause('要查询的电影名称不能为空呢，请重新输入')
 
     session.state[session.current_key] = stripped_arg
 
