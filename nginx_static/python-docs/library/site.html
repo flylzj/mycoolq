@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>site —— 指定域的配置钩子 &#8212; Python 3.8.2 文档</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="在 Python 3.8.2 文档 中搜索"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="版权所有" href="../copyright.html" />
+    <link rel="next" title="自定义 Python 解释器" href="custominterp.html" />
+    <link rel="prev" title="inspect --- 检查对象" href="inspect.html" />
+    <link rel="canonical" href="https://docs.python.org/3/library/site.html" />
+    
+      
+      <script type="text/javascript" src="../_static/switchers.js"></script>
+      
+    
+
+    
+    <style>
+      @media only screen {
+        table.full-width-table {
+            width: 100%;
+        }
+      }
+    </style>
+
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+
+  </head><body>
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="custominterp.html" title="自定义 Python 解释器"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="inspect.html" title="inspect --- 检查对象"
+             accesskey="P">上一页</a> |</li>
+
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://www.python.org/">Python</a> &#187;</li>
+    
+
+    <li>
+      <span class="language_switcher_placeholder">zh_CN</span>
+      <span class="version_switcher_placeholder">3.8.2</span>
+      <a href="../index.html">文档</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python 标准库</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="python.html" accesskey="U">Python运行时服务</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="快速搜索" type="text" name="q" />
+          <input type="submit" value="转向" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-site">
+<span id="site-site-specific-configuration-hook"></span><h1><a class="reference internal" href="#module-site" title="site: Module responsible for site-specific configuration."><code class="xref py py-mod docutils literal notranslate"><span class="pre">site</span></code></a> —— 指定域的配置钩子<a class="headerlink" href="#module-site" title="永久链接至标题">¶</a></h1>
+<p><strong>源代码:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.8/Lib/site.py">Lib/site.py</a></p>
+<hr class="docutils" />
+<p><strong>这个模块将在初始化时被自动导入。</strong> 此自动导入可以通过使用解释器的 <a class="reference internal" href="../using/cmdline.html#id3"><code class="xref std std-option docutils literal notranslate"><span class="pre">-S</span></code></a> 选项来屏蔽。</p>
+<p id="index-0">导入此模块将会附加域特定的路径到模块搜索路径并且添加一些内建对象，除非使用了 <a class="reference internal" href="../using/cmdline.html#id3"><code class="xref std std-option docutils literal notranslate"><span class="pre">-S</span></code></a> 选项。在此例中，模块可以被安全地导入，而不会对模块搜索路径和内建对象有自动的修改或添加。要明确地触发通常域特定的添加，调用函数 <a class="reference internal" href="#site.main" title="site.main"><code class="xref py py-func docutils literal notranslate"><span class="pre">site.main()</span></code></a>。</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 3.3 版更改: </span>即便使用了 <a class="reference internal" href="../using/cmdline.html#id3"><code class="xref std std-option docutils literal notranslate"><span class="pre">-S</span></code></a>，也会导入此模块用于触发路径操纵。</p>
+</div>
+<p id="index-1">It starts by constructing up to four directories from a head and a tail part.
+For the head part, it uses <code class="docutils literal notranslate"><span class="pre">sys.prefix</span></code> and <code class="docutils literal notranslate"><span class="pre">sys.exec_prefix</span></code>; empty heads
+are skipped.  For the tail part, it uses the empty string and then
+<code class="file docutils literal notranslate"><span class="pre">lib/site-packages</span></code> (on Windows) or
+<code class="file docutils literal notranslate"><span class="pre">lib/python</span><em><span class="pre">X.Y</span></em><span class="pre">/site-packages</span></code> (on Unix and Macintosh).  For each
+of the distinct head-tail combinations, it sees if it refers to an existing
+directory, and if so, adds it to <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> and also inspects the newly
+added path for configuration files.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 3.5 版更改: </span>Support for the &quot;site-python&quot; directory has been removed.</p>
+</div>
+<p>如果名为 &quot;pyvenv.cfg&quot; 的文件存在于 sys.executable 之上的一个目录中，则 sys.prefix 和 sys.exec_prefix 将被设置为该目录，并且还会检查 site-packages （ sys.base_prefix 和 sys.base_exec_prefix 始终是 Python 安装的 &quot;真实&quot; 前缀）。 如果 &quot;pyvenv.cfg&quot; （引导程序配置文件）包含设置为非 &quot;true&quot;（不区分大小写）的 &quot;include-system-site-packages&quot; 键，则不会在系统级前缀中搜索 site-packages；反之则会。</p>
+<p id="index-2">一个路径配置文件是具有 <code class="file docutils literal notranslate"><em><span class="pre">name</span></em><span class="pre">.pth</span></code> 命名格式的文件，并且存在上面提到的四个目录之一中；它的内容是要添加到 <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> 中的额外项目（每行一个）。不存在的项目不会添加到 <code class="docutils literal notranslate"><span class="pre">sys.path</span></code>，并且不会检查项目指向的是目录还是文件。项目不会被添加到 <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> 超过一次。空行和由 <code class="docutils literal notranslate"><span class="pre">#</span></code> 起始的行会被跳过。以 <code class="docutils literal notranslate"><span class="pre">import</span></code> 开始的行（跟着空格或 TAB）会被执行。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>每次启动 Python，在 <code class="file docutils literal notranslate"><span class="pre">.pth</span></code> 文件中的可执行行都将会被运行，而不管特定的模块实际上是否需要被使用。 因此，其影响应降至最低。可执行行的主要预期目的是使相关模块可导入（加载第三方导入钩子，调整 <span class="target" id="index-15"></span><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PATH</span></code> 等）。如果它发生了，任何其他的初始化都应当在模块实际导入之前完成。将代码块限制为一行是一种有意采取的措施，不鼓励在此处放置更复杂的内容。</p>
+</div>
+<p id="index-4">例如，假设 <code class="docutils literal notranslate"><span class="pre">sys.prefix</span></code> 和 <code class="docutils literal notranslate"><span class="pre">sys.exec_prefix</span></code> 已经被设置为 <code class="file docutils literal notranslate"><span class="pre">/usr/local</span></code>。 Python X.Y 的库之后被安装为 <code class="file docutils literal notranslate"><span class="pre">/usr/local/lib/python</span><em><span class="pre">X.Y</span></em></code>。假设有一个拥有三个孙目录 <code class="file docutils literal notranslate"><span class="pre">foo</span></code>, <code class="file docutils literal notranslate"><span class="pre">bar</span></code> 和 <code class="file docutils literal notranslate"><span class="pre">spam</span></code> 的子目录 <code class="file docutils literal notranslate"><span class="pre">/usr/local/lib/python</span><em><span class="pre">X.Y</span></em><span class="pre">/site-packages</span></code>，并且有两个路径配置文件 <code class="file docutils literal notranslate"><span class="pre">foot.pth</span></code> 和 <code class="file docutils literal notranslate"><span class="pre">bar.pth</span></code>。假定 <code class="file docutils literal notranslate"><span class="pre">foo.pth</span></code> 内容如下:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># foo package configuration
+
+foo
+bar
+bletch
+</pre></div>
+</div>
+<p>并且 <code class="file docutils literal notranslate"><span class="pre">bar.pth</span></code> 包含:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># bar package configuration
+
+bar
+</pre></div>
+</div>
+<p>则下面特定版目录将以如下顺序被添加到 <code class="docutils literal notranslate"><span class="pre">sys.path</span></code>。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/pythonX.Y/site-packages/bar
+/usr/local/lib/pythonX.Y/site-packages/foo
+</pre></div>
+</div>
+<p>Note that <code class="file docutils literal notranslate"><span class="pre">bletch</span></code> is omitted because it doesn't exist; the <code class="file docutils literal notranslate"><span class="pre">bar</span></code>
+directory precedes the <code class="file docutils literal notranslate"><span class="pre">foo</span></code> directory because <code class="file docutils literal notranslate"><span class="pre">bar.pth</span></code> comes
+alphabetically before <code class="file docutils literal notranslate"><span class="pre">foo.pth</span></code>; and <code class="file docutils literal notranslate"><span class="pre">spam</span></code> is omitted because it is
+not mentioned in either path configuration file.</p>
+<p id="index-5">After these path manipulations, an attempt is made to import a module named
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">sitecustomize</span></code>, which can perform arbitrary site-specific customizations.
+It is typically created by a system administrator in the site-packages
+directory.  If this import fails with an <a class="reference internal" href="exceptions.html#ImportError" title="ImportError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ImportError</span></code></a> or its subclass
+exception, and the exception's <code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code> attribute equals to <code class="docutils literal notranslate"><span class="pre">'sitecustomize'</span></code>,
+it is silently ignored.  If Python is started without output streams available, as
+with <code class="file docutils literal notranslate"><span class="pre">pythonw.exe</span></code> on Windows (which is used by default to start IDLE),
+attempted output from <code class="xref py py-mod docutils literal notranslate"><span class="pre">sitecustomize</span></code> is ignored.  Any other exception
+causes a silent and perhaps mysterious failure of the process.</p>
+<p id="index-6">After this, an attempt is made to import a module named <code class="xref py py-mod docutils literal notranslate"><span class="pre">usercustomize</span></code>,
+which can perform arbitrary user-specific customizations, if
+<a class="reference internal" href="#site.ENABLE_USER_SITE" title="site.ENABLE_USER_SITE"><code class="xref py py-data docutils literal notranslate"><span class="pre">ENABLE_USER_SITE</span></code></a> is true.  This file is intended to be created in the
+user site-packages directory (see below), which is part of <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> unless
+disabled by <a class="reference internal" href="../using/cmdline.html#cmdoption-s"><code class="xref std std-option docutils literal notranslate"><span class="pre">-s</span></code></a>.  If this import fails with an <a class="reference internal" href="exceptions.html#ImportError" title="ImportError"><code class="xref py py-exc docutils literal notranslate"><span class="pre">ImportError</span></code></a> or
+its subclass exception, and the exception's <code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code> attribute equals to
+<code class="docutils literal notranslate"><span class="pre">'usercustomize'</span></code>, it is silently ignored.</p>
+<p>Note that for some non-Unix systems, <code class="docutils literal notranslate"><span class="pre">sys.prefix</span></code> and <code class="docutils literal notranslate"><span class="pre">sys.exec_prefix</span></code> are
+empty, and the path manipulations are skipped; however the import of
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">sitecustomize</span></code> and <code class="xref py py-mod docutils literal notranslate"><span class="pre">usercustomize</span></code> is still attempted.</p>
+<div class="section" id="readline-configuration">
+<span id="rlcompleter-config"></span><h2>Readline configuration<a class="headerlink" href="#readline-configuration" title="永久链接至标题">¶</a></h2>
+<p>On systems that support <a class="reference internal" href="readline.html#module-readline" title="readline: GNU readline support for Python. (Unix)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">readline</span></code></a>, this module will also import and
+configure the <a class="reference internal" href="rlcompleter.html#module-rlcompleter" title="rlcompleter: Python identifier completion, suitable for the GNU readline library."><code class="xref py py-mod docutils literal notranslate"><span class="pre">rlcompleter</span></code></a> module, if Python is started in
+<a class="reference internal" href="../tutorial/interpreter.html#tut-interactive"><span class="std std-ref">interactive mode</span></a> and without the <a class="reference internal" href="../using/cmdline.html#id3"><code class="xref std std-option docutils literal notranslate"><span class="pre">-S</span></code></a> option.
+The default behavior is enable tab-completion and to use
+<code class="file docutils literal notranslate"><span class="pre">~/.python_history</span></code> as the history save file.  To disable it, delete (or
+override) the <a class="reference internal" href="sys.html#sys.__interactivehook__" title="sys.__interactivehook__"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.__interactivehook__</span></code></a> attribute in your
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">sitecustomize</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">usercustomize</span></code> module or your
+<span class="target" id="index-7"></span><a class="reference internal" href="../using/cmdline.html#envvar-PYTHONSTARTUP"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONSTARTUP</span></code></a> file.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 3.4 版更改: </span>Activation of rlcompleter and history was made automatic.</p>
+</div>
+</div>
+<div class="section" id="module-contents">
+<h2>模块内容<a class="headerlink" href="#module-contents" title="永久链接至标题">¶</a></h2>
+<dl class="data">
+<dt id="site.PREFIXES">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">PREFIXES</code><a class="headerlink" href="#site.PREFIXES" title="永久链接至目标">¶</a></dt>
+<dd><p>A list of prefixes for site-packages directories.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="site.ENABLE_USER_SITE">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">ENABLE_USER_SITE</code><a class="headerlink" href="#site.ENABLE_USER_SITE" title="永久链接至目标">¶</a></dt>
+<dd><p>Flag showing the status of the user site-packages directory.  <code class="docutils literal notranslate"><span class="pre">True</span></code> means
+that it is enabled and was added to <code class="docutils literal notranslate"><span class="pre">sys.path</span></code>.  <code class="docutils literal notranslate"><span class="pre">False</span></code> means that it
+was disabled by user request (with <a class="reference internal" href="../using/cmdline.html#cmdoption-s"><code class="xref std std-option docutils literal notranslate"><span class="pre">-s</span></code></a> or
+<span class="target" id="index-8"></span><a class="reference internal" href="../using/cmdline.html#envvar-PYTHONNOUSERSITE"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONNOUSERSITE</span></code></a>).  <code class="docutils literal notranslate"><span class="pre">None</span></code> means it was disabled for security
+reasons (mismatch between user or group id and effective id) or by an
+administrator.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="site.USER_SITE">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">USER_SITE</code><a class="headerlink" href="#site.USER_SITE" title="永久链接至目标">¶</a></dt>
+<dd><p>Path to the user site-packages for the running Python.  Can be <code class="docutils literal notranslate"><span class="pre">None</span></code> if
+<a class="reference internal" href="#site.getusersitepackages" title="site.getusersitepackages"><code class="xref py py-func docutils literal notranslate"><span class="pre">getusersitepackages()</span></code></a> hasn't been called yet.  Default value is
+<code class="file docutils literal notranslate"><span class="pre">~/.local/lib/python</span><em><span class="pre">X.Y</span></em><span class="pre">/site-packages</span></code> for UNIX and non-framework Mac
+OS X builds, <code class="file docutils literal notranslate"><span class="pre">~/Library/Python/</span><em><span class="pre">X.Y</span></em><span class="pre">/lib/python/site-packages</span></code> for Mac
+framework builds, and <code class="file docutils literal notranslate"><em><span class="pre">%APPDATA%</span></em><span class="pre">\Python\Python</span><em><span class="pre">XY</span></em><span class="pre">\site-packages</span></code>
+on Windows.  This directory is a site directory, which means that
+<code class="file docutils literal notranslate"><span class="pre">.pth</span></code> files in it will be processed.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="site.USER_BASE">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">USER_BASE</code><a class="headerlink" href="#site.USER_BASE" title="永久链接至目标">¶</a></dt>
+<dd><p>Path to the base directory for the user site-packages.  Can be <code class="docutils literal notranslate"><span class="pre">None</span></code> if
+<a class="reference internal" href="#site.getuserbase" title="site.getuserbase"><code class="xref py py-func docutils literal notranslate"><span class="pre">getuserbase()</span></code></a> hasn't been called yet.  Default value is
+<code class="file docutils literal notranslate"><span class="pre">~/.local</span></code> for UNIX and Mac OS X non-framework builds,
+<code class="file docutils literal notranslate"><span class="pre">~/Library/Python/</span><em><span class="pre">X.Y</span></em></code> for Mac framework builds, and
+<code class="file docutils literal notranslate"><em><span class="pre">%APPDATA%</span></em><span class="pre">\Python</span></code> for Windows.  This value is used by Distutils to
+compute the installation directories for scripts, data files, Python modules,
+etc. for the <a class="reference internal" href="../install/index.html#inst-alt-install-user"><span class="std std-ref">user installation scheme</span></a>.
+See also <span class="target" id="index-9"></span><a class="reference internal" href="../using/cmdline.html#envvar-PYTHONUSERBASE"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONUSERBASE</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="site.main">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site.main" title="永久链接至目标">¶</a></dt>
+<dd><p>Adds all the standard site-specific directories to the module search
+path.  This function is called automatically when this module is imported,
+unless the Python interpreter was started with the <a class="reference internal" href="../using/cmdline.html#id3"><code class="xref std std-option docutils literal notranslate"><span class="pre">-S</span></code></a> flag.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">在 3.3 版更改: </span>This function used to be called unconditionally.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="site.addsitedir">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">addsitedir</code><span class="sig-paren">(</span><em class="sig-param">sitedir</em>, <em class="sig-param">known_paths=None</em><span class="sig-paren">)</span><a class="headerlink" href="#site.addsitedir" title="永久链接至目标">¶</a></dt>
+<dd><p>Add a directory to sys.path and process its <code class="file docutils literal notranslate"><span class="pre">.pth</span></code> files.  Typically
+used in <code class="xref py py-mod docutils literal notranslate"><span class="pre">sitecustomize</span></code> or <code class="xref py py-mod docutils literal notranslate"><span class="pre">usercustomize</span></code> (see above).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="site.getsitepackages">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">getsitepackages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site.getsitepackages" title="永久链接至目标">¶</a></dt>
+<dd><p>Return a list containing all global site-packages directories.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">3.2 新版功能.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="site.getuserbase">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">getuserbase</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site.getuserbase" title="永久链接至目标">¶</a></dt>
+<dd><p>Return the path of the user base directory, <a class="reference internal" href="#site.USER_BASE" title="site.USER_BASE"><code class="xref py py-data docutils literal notranslate"><span class="pre">USER_BASE</span></code></a>.  If it is not
+initialized yet, this function will also set it, respecting
+<span class="target" id="index-10"></span><a class="reference internal" href="../using/cmdline.html#envvar-PYTHONUSERBASE"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONUSERBASE</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">3.2 新版功能.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="site.getusersitepackages">
+<code class="sig-prename descclassname">site.</code><code class="sig-name descname">getusersitepackages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site.getusersitepackages" title="永久链接至目标">¶</a></dt>
+<dd><p>Return the path of the user-specific site-packages directory,
+<a class="reference internal" href="#site.USER_SITE" title="site.USER_SITE"><code class="xref py py-data docutils literal notranslate"><span class="pre">USER_SITE</span></code></a>.  If it is not initialized yet, this function will also set
+it, respecting <span class="target" id="index-11"></span><a class="reference internal" href="../using/cmdline.html#envvar-PYTHONNOUSERSITE"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONNOUSERSITE</span></code></a> and <a class="reference internal" href="#site.USER_BASE" title="site.USER_BASE"><code class="xref py py-data docutils literal notranslate"><span class="pre">USER_BASE</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">3.2 新版功能.</span></p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="command-line-interface">
+<span id="site-commandline"></span><h2>命令行界面<a class="headerlink" href="#command-line-interface" title="永久链接至标题">¶</a></h2>
+<p>The <a class="reference internal" href="#module-site" title="site: Module responsible for site-specific configuration."><code class="xref py py-mod docutils literal notranslate"><span class="pre">site</span></code></a> module also provides a way to get the user directories from the
+command line:</p>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m site --user-site
+<span class="go">/home/user/.local/lib/python3.3/site-packages</span>
+</pre></div>
+</div>
+<p>If it is called without arguments, it will print the contents of
+<a class="reference internal" href="sys.html#sys.path" title="sys.path"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a> on the standard output, followed by the value of
+<a class="reference internal" href="#site.USER_BASE" title="site.USER_BASE"><code class="xref py py-data docutils literal notranslate"><span class="pre">USER_BASE</span></code></a> and whether the directory exists, then the same thing for
+<a class="reference internal" href="#site.USER_SITE" title="site.USER_SITE"><code class="xref py py-data docutils literal notranslate"><span class="pre">USER_SITE</span></code></a>, and finally the value of <a class="reference internal" href="#site.ENABLE_USER_SITE" title="site.ENABLE_USER_SITE"><code class="xref py py-data docutils literal notranslate"><span class="pre">ENABLE_USER_SITE</span></code></a>.</p>
+<dl class="cmdoption">
+<dt id="cmdoption-site-user-base">
+<code class="sig-name descname">--user-base</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-site-user-base" title="永久链接至目标">¶</a></dt>
+<dd><p>Print the path to the user base directory.</p>
+</dd></dl>
+
+<dl class="cmdoption">
+<dt id="cmdoption-site-user-site">
+<code class="sig-name descname">--user-site</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-site-user-site" title="永久链接至目标">¶</a></dt>
+<dd><p>Print the path to the user site-packages directory.</p>
+</dd></dl>
+
+<p>If both options are given, user base and user site will be printed (always in
+this order), separated by <a class="reference internal" href="os.html#os.pathsep" title="os.pathsep"><code class="xref py py-data docutils literal notranslate"><span class="pre">os.pathsep</span></code></a>.</p>
+<p>If any option is given, the script will exit with one of these values: <code class="docutils literal notranslate"><span class="pre">0</span></code> if
+the user site-packages directory is enabled, <code class="docutils literal notranslate"><span class="pre">1</span></code> if it was disabled by the
+user, <code class="docutils literal notranslate"><span class="pre">2</span></code> if it is disabled for security reasons or by an administrator, and a
+value greater than 2 if there is an error.</p>
+<div class="admonition seealso">
+<p class="admonition-title">参见</p>
+<p><span class="target" id="index-16"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0370"><strong>PEP 370</strong></a> -- 分用户的 site-packages 目录</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">site</span></code> —— 指定域的配置钩子</a><ul>
+<li><a class="reference internal" href="#readline-configuration">Readline configuration</a></li>
+<li><a class="reference internal" href="#module-contents">模块内容</a></li>
+<li><a class="reference internal" href="#command-line-interface">命令行界面</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="inspect.html"
+                        title="上一章"><code class="xref py py-mod docutils literal notranslate"><span class="pre">inspect</span></code> --- 检查对象</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="custominterp.html"
+                        title="下一章">自定义 Python 解释器</a></p>
+  <div role="note" aria-label="source link">
+    <h3>本页</h3>
+    <ul class="this-page-menu">
+      <li><a href="../bugs.html">提交 Bug</a></li>
+      <li>
+        <a href="https://github.com/python/cpython/blob/3.8/Doc/library/site.rst"
+            rel="nofollow">显示源代码
+        </a>
+      </li>
+    </ul>
+  </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python 模块索引"
+             >模块</a> |</li>
+        <li class="right" >
+          <a href="custominterp.html" title="自定义 Python 解释器"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="inspect.html" title="inspect --- 检查对象"
+             >上一页</a> |</li>
+
+    <li><img src="../_static/py.png" alt=""
+             style="vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://www.python.org/">Python</a> &#187;</li>
+    
+
+    <li>
+      <span class="language_switcher_placeholder">zh_CN</span>
+      <span class="version_switcher_placeholder">3.8.2</span>
+      <a href="../index.html">文档</a> &#187;
+    </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >Python 标准库</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="python.html" >Python运行时服务</a> &#187;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="快速搜索" type="text" name="q" />
+          <input type="submit" value="转向" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; <a href="../copyright.html">版权所有</a> 2001-2020, Python Software Foundation.
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    最后更新于 3月 04, 2020.
+    <a href="https://docs.python.org/3/bugs.html">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 2.3.1.
+    </div>
+
+  </body>
+</html>
