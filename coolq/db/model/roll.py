@@ -45,7 +45,7 @@ def count_my_roll(group_id, user_id):
     try:
         res = session.query(func.sum(RollHistory.point).label('s')).filter_by(group_id=group_id, user_id=user_id).first()
         if res:
-            return res
+            return res[0]
         return 0
     except Exception as e:
         return 0
