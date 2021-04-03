@@ -40,7 +40,6 @@ async def roll_count_command(session: CommandSession):
     await session.send(message=message)
 
 
-
 @on_command('myroll', aliases=("我的肉", ), only_to_me=False)
 async def my_roll(session: CommandSession):
     group_id = session.ctx.get('group_id') if session.ctx.get('group_id') else 0
