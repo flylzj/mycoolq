@@ -1,11 +1,7 @@
 # coding: utf-8
 from nonebot import on_command, CommandSession
 from random import randint
-<<<<<<< HEAD
-from coolq.db.model.roll import count_toady_roll, insert_point, count_roll
-=======
 from coolq.db.model.roll import count_toady_roll, insert_point, count_roll, count_my_roll
->>>>>>> 18b6f849fcbb6d58ffa52df3191db814caf27e9d
 import time
 from config import MANAGING_GROUPS
 from coolq.util.coolq import get_group_user_name
