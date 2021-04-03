@@ -40,6 +40,19 @@ def count_roll(group_id):
     return most_point_user, most_point, most_times_user, most_times
 
 
+def count_my_roll(group_id, user_id):
+    session = SESSION()
+    try:
+        res = session.query(func.sum(RollHistory.point).label('s')).filter_by(group_id=group_id, user_id=user_id).first()
+        if res:
+            return res
+        return 0
+    except Exception as e:
+        return 0
+    finally:
+        session.close()
+
+
 # 最多点数
 def count_most_point(group_id):
     session = SESSION()
@@ -52,6 +65,7 @@ def count_most_point(group_id):
         return 0, 0
     finally:
         session.close()
+
 
 # 最多次数
 def count_most_times(group_id):

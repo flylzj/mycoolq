@@ -1,7 +1,11 @@
 # coding: utf-8
 from nonebot import on_command, CommandSession
 from random import randint
+<<<<<<< HEAD
 from coolq.db.model.roll import count_toady_roll, insert_point, count_roll
+=======
+from coolq.db.model.roll import count_toady_roll, insert_point, count_roll, count_my_roll
+>>>>>>> 18b6f849fcbb6d58ffa52df3191db814caf27e9d
 import time
 from config import MANAGING_GROUPS
 from coolq.util.coolq import get_group_user_name
@@ -39,4 +43,16 @@ async def roll_count_command(session: CommandSession):
         message += f"本群次数之王:{name}\n已掷骰子次数:{most_times}\n"
     await session.send(message=message)
 
+
+
+@on_command('myroll', aliases=("我的肉", ), only_to_me=False)
+async def my_roll(session: CommandSession):
+    group_id = session.ctx.get('group_id') if session.ctx.get('group_id') else 0
+    user_id = session.ctx.get("user_id") if session.ctx.get("user_id") else 0
+
+    sum_point = count_my_roll(group_id, user_id)
+
+    message = "你在本群的点数为{}".format(sum_point)
+
+    await session.send(message=message)
 
