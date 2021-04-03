@@ -1,5 +1,6 @@
 # coding: utf-8
 from nonebot.default_config import *
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -48,6 +49,12 @@ PYTHON_TUTORIALS_URL = "https://flythief.cn/post/python-tutorials/"
 MOVIE_URL = "http://www.coupling.pw"
 
 COMMAND_START = {'', '/'}
+
+TULING_API = "http://openapi.tuling123.com/openapi/api/v2"
+
+TULING_API_KEY = '9c2401461070462facc3df32e1b3cfb8'
+
+TULING_API_REQ_TYPE_TEXT = 0
 
 # REDIS_CONFIG = {
 #     "host": "redis",
