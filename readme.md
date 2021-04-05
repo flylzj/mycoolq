@@ -15,4 +15,4 @@
 - [x] 百词斩打卡记录 （已失效）
 - [x] 图书馆馆藏查询 （已失效）
 - [x] 打卡统计（基于[pyecharts](https://pyecharts.org)）（已失效）
-- [x] 每日天气提醒（[和风天气](https://www.heweather.com/)）（已失效）
+- [x] 每日天气提醒（[和风天气](https://www.heweather.com/)）（   已失效）
