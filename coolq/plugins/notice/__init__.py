@@ -3,10 +3,10 @@ import nonebot
 from nonebot import on_command, CommandSession
 from coolq.db.model.notice import has_signed_today, sign as sign_to_db
 from coolq.util.coolq import at_someone
-from config import  NEED_SIGN_USER
+from config import NEED_SIGN_USER
 
 
-@on_command("signed", aliases="打了")
+@on_command("signed", aliases=("打了", ), only_to_me=True)
 async def sign(session: CommandSession):
     user_id = session.ctx.get('user_id')
     message = at_someone(user_id)
@@ -17,7 +17,7 @@ async def sign(session: CommandSession):
             message += "打卡失败"
     else:
         message += "已经打过卡了"
-    await session.bot.send_group_msg(group_id=NEED_SIGN_USER.get(user_id), message=message)
+    await session.finish(message=message)
 
 
 @nonebot.scheduler.scheduled_job('cron', hour="8,17,21", minute="*")
