@@ -22,7 +22,7 @@ async def sign(session: CommandSession):
 
 @nonebot.scheduler.scheduled_job('cron', hour="8,17,21", minute="*")
 async def notice_sign():
-    for group_id, user_id in NEED_SIGN_USER:
+    for group_id, user_id in NEED_SIGN_USER.items():
         if not has_signed_today(user_id):
             bot = nonebot.get_bot()
             message = at_someone(user_id)
