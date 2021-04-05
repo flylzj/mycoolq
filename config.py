@@ -12,10 +12,6 @@ SESSION = sessionmaker(bind=ENGINE)
 # english
 SUPERUSERS = {1449902124}
 
-# MY_NOTICE_GROUP
-NOTICE_GROUP = (
-
-)
 
 # Need Sign User
 NEED_SIGN_USER = {

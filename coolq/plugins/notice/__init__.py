@@ -25,5 +25,5 @@ async def notice_sign():
     for user_id, group_id in NEED_SIGN_USER.items():
         if not has_signed_today(user_id):
             bot = nonebot.get_bot()
-            message = at_someone(user_id)
+            message = at_someone(user_id) + "打卡"
             await bot.send_group_msg(group_id=group_id, message=message)
