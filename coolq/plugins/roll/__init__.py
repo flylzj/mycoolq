@@ -125,6 +125,7 @@ class RollEvent:
         self._check_manager_event()
         self._check_double_roll_event()
         self._check_god_selected_event()
+        self._check_first_event()
         self.__handled = True
         self.__message += "\n最终点数为{}".format(self.__roll)
 
