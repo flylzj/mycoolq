@@ -1,6 +1,6 @@
 # coding: utf-8
 from nonebot.default_config import *
-import os
+import redis
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -61,9 +61,10 @@ TULING_API_KEY = '9c2401461070462facc3df32e1b3cfb8'
 
 TULING_API_REQ_TYPE_TEXT = 0
 
-# REDIS_CONFIG = {
-#     "host": "redis",
-#     "decode_responses": True
-# }
-#
-# POOL = ConnectionPool(**REDIS_CONFIG)
+REDIS_CONFIG = {
+    "host": "redis",
+    "decode_responses": True
+}
+
+
+
