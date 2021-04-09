@@ -1,5 +1,6 @@
 # coding: utf-8
-from nonebot import on_command, CommandSession, scheduler, get_bot, logger
+from nonebot import on_command, CommandSession, scheduler, get_bot
+from nonebot.log import logger
 from random import randint
 from coolq.db.model.roll import count_toady_roll, insert_point, count_roll, count_my_roll
 from coolq.cache import get_conn as get_redis_conn
@@ -101,17 +102,20 @@ class RollEvent:
 
     def _check_god_selected_event(self):
         # 命中天选且没有天选
+        logger.debug("start _check_god_selected_event")
         if self.__is_god_selected() and not self.__has_god_selected_today():
             self.__roll = abs(self.__roll) * 3
             self.__set_god_selected()
             self.__message += "\n恭喜你触发了天选之人事件，点数转正并*3"
 
     def _check_double_roll_event(self):
+        logger.debug("start _check_double_roll_event")
         if datetime.now().time().hour == self.DOUBLE_ROLL_TIME:
             self.__roll = self.__roll * 2
             self.__message += "\n触发了双倍时刻事件，点数*3"
 
     def _check_first_event(self):
+        logger.debug("start _check_first_event")
         if not self.__has_first_man_today():
             self.__roll = abs(self.__roll) * 2
             self.__set_first_man_today()
