@@ -47,7 +47,7 @@ class RollEvent:
         self.__user_id = user_id
         self.__group_id = group_id
         self.__roll = randint(-6, 6)
-        self.__message = "你肉到了{}点"
+        self.__message = "你肉到了{}点".format(self.__roll)
         self.__handled = False
 
     def __get_first_man_key(self):
@@ -94,7 +94,6 @@ class RollEvent:
         if self.__is_manager():
             self.__roll += 6
             self.__message += "\n恭喜你触发了管理员事件，点数加6"
-            return True
 
     def _check_god_selected_event(self):
         # 命中天选且没有天选
@@ -102,25 +101,23 @@ class RollEvent:
             self.__roll = abs(self.__roll) * 3
             self.__set_god_selected()
             self.__message += "\n恭喜你触发了天选之人事件，点数转正并*3"
-            return True
 
     def _check_double_roll_event(self):
         if datetime.now().time().hour == self.DOUBLE_ROLL_TIME:
             self.__roll = self.__roll * 2
             self.__message += "\n触发了双倍时刻事件，点数*3"
-            return True
 
     def _check_first_event(self):
         if not self.__has_first_man_today():
             self.__roll = abs(self.__roll) * 2
             self.__message += "\n恭喜你触发了勤劳之人事件，点数转正并*2"
-            return True
 
     def _handle_roll(self):
         self._check_manager_event()
         self._check_double_roll_event()
         self._check_god_selected_event()
         self.__handled = True
+        self.__roll += "\n最终点数为{}".format(self.__roll)
 
     def get_roll(self):
         if not self.__handled:
@@ -136,8 +133,7 @@ async def roll_command(session: CommandSession):
     user_id = session.ctx.get('user_id')
     group_id = session.ctx.get('group_id') if session.ctx.get('group_id') else 0
     count = count_toady_roll(group_id=group_id, user_id=user_id)
-    # if group_id not in MANAGING_GROUPS and count <= 1:
-    if count <= 1:
+    if (group_id in MANAGING_GROUPS and count <= 1) or group_id not in MANAGING_GROUPS:
         roll_event = RollEvent(user_id, group_id)
         roll = roll_event.get_roll()
         message = roll_event.get_roll_message()
