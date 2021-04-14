@@ -1,10 +1,9 @@
 # coding: utf-8
-from sqlalchemy import Column, Integer, func, desc
+from sqlalchemy import Column, Integer, func, desc, Text
 from config import SESSION
 from . import Base
 import time
 from datetime import datetime
-from coolq.util.coolq import at_someone
 
 
 class RollHistory(Base):
@@ -16,6 +15,7 @@ class RollHistory(Base):
     user_id = Column(Integer, nullable=False)
     point = Column(Integer, nullable=False)
     roll_time = Column(Integer, nullable=False)
+    message = Column(Text, nullable=False)
 
 
 def count_toady_roll(**kwargs):
