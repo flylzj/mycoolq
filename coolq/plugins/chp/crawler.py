@@ -9,6 +9,7 @@ async def get_chp():
         try:
             async with session.get(url=chp_url) as r:
                 data = await r.text()
+                logger.info("chp text" + data)
                 data = json.loads(data)
                 content = data['data']['comment']
                 if content:
