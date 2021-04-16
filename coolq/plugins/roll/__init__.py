@@ -72,7 +72,7 @@ async def my_roll(session: CommandSession):
 
 @on_command('roll_battle', aliases=("肉拜骰", ), only_to_me=False)
 async def roll_battle(session: CommandSession):
-    await session.send("battle事件开始，接下来一分钟内肉所得将被点数最高者们平分")
+    await session.send("battle事件开始，接下来一分钟 内肉所得将被点数最高者们平分")
 
 
 @scheduler.scheduled_job('cron', **RollEvent.DOUBLE_ROLL_TIME_CRON)
