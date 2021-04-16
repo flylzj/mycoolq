@@ -3,7 +3,7 @@ from nonebot import on_command, CommandSession, scheduler, get_bot
 from coolq.db.model.roll import count_toady_roll, insert_point, count_roll, count_my_roll
 import time
 from config import MANAGING_GROUPS
-from coolq.util.coolq import get_group_user_name
+from coolq.util.coolq import get_group_user_name, parse_at_someone
 from coolq.plugins.roll.roll import RollEvent
 
 
@@ -68,6 +68,11 @@ async def my_roll(session: CommandSession):
     message = "你在本群的点数为{}".format(sum_point)
 
     await session.send(message=message)
+
+
+@on_command('roll_battle', aliases=("肉拜骰", ), only_to_me=False)
+async def roll_battle(session: CommandSession):
+    await session.send("battle事件开始，接下来一分钟内肉所得将被点数最高者们平分")
 
 
 @scheduler.scheduled_job('cron', **RollEvent.DOUBLE_ROLL_TIME_CRON)
