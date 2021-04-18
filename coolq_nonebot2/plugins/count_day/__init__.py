@@ -3,7 +3,7 @@ from nonebot import on_command
 from nonebot import require
 from nonebot.typing import T_State
 from nonebot.adapters import Bot, Event
-from coolq.db.model.count_day import to_zero, increase_one, get_need_increase
+from .resource import to_zero, increase_one, get_need_increase
 
 
 count_day = on_command("count_day", aliases={"计数", })
