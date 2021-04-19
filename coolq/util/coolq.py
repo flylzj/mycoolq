@@ -1,9 +1,16 @@
 # coding: utf-8
 from nonebot import get_bot
+import re
 
 
 def at_someone(user_id):
     return f"[CQ:at,qq={user_id}]"
+
+
+def parse_at_someone(text):
+    user_ids_pattern = r"[CQ:at,qq=(\d{6,10})]"
+    res = re.findall(user_ids_pattern, text)
+    return res
 
 
 async def get_group_user_name(group_id, user_id):

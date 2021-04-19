@@ -18,6 +18,7 @@ class RollEvent:
 
     REDIS_GOD_SELECTED_MAN_KEY = "roll-god-select-{}-{}-{}"
     REDIS_FIRST_ROLL_MAN_KEY = "roll-first-man-{}-{}-{}"
+    REDIS_ROLL_BATTLE_EVENT_KEY = "roll-battle-event-{}-{}"
 
     GOD_SELECTED_PROB = 50
 
