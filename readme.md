@@ -11,6 +11,13 @@
 - [x] 加群验证码
 - [x] 查询python标准库文档
 
+### todo list
+
+* 每日肉统计
+* 成语接龙
+* python沙盒
+* roll_battle
+
 
 ### 开发
 

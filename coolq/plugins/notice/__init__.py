@@ -20,7 +20,7 @@ async def sign(session: CommandSession):
     await session.finish(message=message)
 
 
-@nonebot.scheduler.scheduled_job('cron', hour="21", minute="*")
+@nonebot.scheduler.scheduled_job('cron', hour="21", minute="0-59/5")
 async def notice_sign():
     for user_id, group_id in NEED_SIGN_USER.items():
         if not has_signed_today(user_id):
