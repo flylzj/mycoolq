@@ -24,7 +24,7 @@ async def count_day_command(bot: Bot, event: Event, state: T_State):
 scheduler = require('nonebot_plugin_apscheduler').scheduler
 
 
-@scheduler.scheduled_job('cron', second="23")
+@scheduler.scheduled_job('cron', hour="23")
 async def increase_day():
     bot = CoolqBot()
     if bot.bot:

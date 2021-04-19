@@ -35,7 +35,7 @@ roll = on_command("roll", aliases={"肉", })
 
 
 @roll.handle()
-async def roll_command(bot: Bot, event: Event, state: T_State):
+async def handel_roll(bot: Bot, event: Event, state: T_State):
     '''
     :param bot: adapters.cqhttp.bot.Bot
     :param event: message.private.friend
