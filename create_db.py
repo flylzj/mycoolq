@@ -1,12 +1,7 @@
 #coding: utf-8
-from config import ENGINE, SESSION
 # 显式导入table才能create
-from coolq.db.model.new_member_captcha import NewMemberCaptcha, Flag
-from coolq.db.model.python_lib_helper import PythonLibs, PythonLangRef
-from coolq.db.model.roll import RollHistory
-from coolq.db.model.count_day import Days
-from coolq.db.model.notice import SignHistory
-from coolq.db.model import Base
+from coolq_nonebot2.db.models import Days, RollEvent, RollHistory
+from coolq_nonebot2.db import Base, ENGINE
 
 
 def init_db(new=False):

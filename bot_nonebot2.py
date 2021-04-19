@@ -1,9 +1,10 @@
 # coding: utf-8
 import nonebot
 from nonebot.adapters.cqhttp import Bot as CQHTTPBot
-import coolq_nonebot2.db
+from create_db import init_db
 
 
+init_db()
 nonebot.init()
 
 driver = nonebot.get_driver()
