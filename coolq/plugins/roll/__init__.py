@@ -7,7 +7,7 @@ from nonebot.typing import T_State
 from nonebot.adapters import Bot, Event
 from .config import Config
 from .resource import RollResource
-from coolq_nonebot2.util.coolq import CoolqBot
+from coolq.util.coolq import CoolqBot
 
 
 global_config = nonebot.get_driver().config

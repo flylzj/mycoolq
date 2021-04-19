@@ -3,8 +3,8 @@ import random
 from datetime import datetime
 import time
 from nonebot.log import logger
-from coolq_nonebot2.db.models import RollHistory, RollEvent, RollEventEnum
-from coolq_nonebot2.util.coolq import CoolqBot
+from coolq.db.models import RollHistory, RollEvent, RollEventEnum
+from coolq.util.coolq import CoolqBot
 
 
 class RollResource(object):

@@ -1,5 +1,5 @@
 # coding: utf-8
-from coolq_nonebot2.db.models import Days
+from coolq.db.models import Days
 
 
 def to_zero(user_id):

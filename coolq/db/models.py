@@ -2,7 +2,7 @@
 from sqlalchemy import Column, Integer, func, desc, Text, String
 from sqlalchemy import update, select
 from . import Base, SESSION
-from coolq_nonebot2.util.lib import get_today_start_end
+from coolq.util.lib import get_today_start_end
 from nonebot.log import logger
 import enum
 

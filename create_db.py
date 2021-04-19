@@ -1,7 +1,7 @@
 #coding: utf-8
 # 显式导入table才能create
-from coolq_nonebot2.db.models import Days, RollEvent, RollHistory
-from coolq_nonebot2.db import Base, ENGINE
+from coolq.db.models import Days, RollEvent, RollHistory
+from coolq.db import Base, ENGINE
 
 
 def init_db(new=False):

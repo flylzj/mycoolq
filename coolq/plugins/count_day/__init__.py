@@ -4,7 +4,7 @@ from nonebot import on_command
 from nonebot import require
 from nonebot.typing import T_State
 from nonebot.adapters import Bot, Event
-from coolq_nonebot2.util.coolq import CoolqBot
+from coolq.util.coolq import CoolqBot
 from .resource import to_zero, increase_one, get_need_increase
 
 
