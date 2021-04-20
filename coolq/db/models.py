@@ -255,5 +255,58 @@ class RollEvent(Base):
             session.close()
 
 
+class SignInAccountEnum(enum.IntEnum):
+    t00ls_account = 0
+
+    @property
+    def int_value(self):
+        return self.value
 
 
+class SignInAccount(Base):
+    __tablename__ = "sign_in_account"
+
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    account_type = Column(Integer, nullable=False)
+    user_id = Column(String(64), nullable=False)
+    account_info = Column(String(255), nullable=False, default="{}")  # 默认空json
+
+    @staticmethod
+    def insert_account(**kwargs):
+        session = SESSION()
+        try:
+            account = SignInAccount(**kwargs)
+            session.add(account)
+            session.commit()
+            session.flush(account)
+            return account.id
+        except Exception as e:
+            logger.error(f"insert_account err {str(e)}")
+            return
+
+    @staticmethod
+    def get_accounts(account_type, user_id=""):
+        session = SESSION()
+        try:
+            statement = select(SignInAccount).filter_by(
+                account_type=account_type
+            )
+            if user_id:
+                statement = statement.filter_by(
+                    user_id=user_id,
+                )
+            res = session.execute(statement).scalars().all()
+            for r in res:
+                yield r
+        except Exception as e:
+            logger.error(f"get_accounts err {str(e)}")
+
+    @staticmethod
+    def update_account(user_id, account_id, **data):
+        session = SESSION()
+        try:
+            update_statement = update(SignInAccount).where(id=account_id, user_id=user_id).update(**data)
+            res = session.execute(update_statement)
+            return res
+        except Exception as e:
+            logger.error(f"modify_account err {str(e)}")

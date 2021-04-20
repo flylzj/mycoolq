@@ -4,7 +4,7 @@ from nonebot import on_command
 from nonebot import require
 from nonebot.typing import T_State
 from nonebot.adapters import Bot, Event
-from coolq.util.coolq import CoolqBot
+from coolq.util.coolq import get_coolq_bot
 from .resource import to_zero, increase_one, get_need_increase
 
 
@@ -26,8 +26,8 @@ scheduler = require('nonebot_plugin_apscheduler').scheduler
 
 @scheduler.scheduled_job('cron', hour="23")
 async def increase_day():
-    bot = CoolqBot()
-    if bot.bot:
+    bot = get_coolq_bot()
+    if bot:
         for d in get_need_increase():
             user_id = d.user_id
             increase_one(user_id)
