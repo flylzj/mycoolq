@@ -3,11 +3,13 @@ from nonebot.log import logger
 from nonebot import on_command
 from nonebot.adapters import Bot, Event
 from nonebot.typing import T_State
+import os
 
 
 def custom_exec(code):
     try:
-        res = exec(code, {}, {})
+        cmd = f"echo {code}|python"
+        res = os.popen(cmd).read()
         if not res:
             return "结果为空"
         return res
