@@ -8,7 +8,7 @@ import os
 
 def custom_exec(code):
     try:
-        cmd = f"echo {code}|python"
+        cmd = f"echo \"{code}\"|python"
         res = os.popen(cmd).read()
         if not res:
             return "结果为空"
