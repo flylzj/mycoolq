@@ -64,7 +64,7 @@ async def t00ls_modify_command(bot: Bot, event: Event, state: T_State):
 scheduler = require('nonebot_plugin_apscheduler').scheduler
 
 
-@scheduler.scheduled_job('cron', second="0-59/10")
+@scheduler.scheduled_job('cron', hour="1")
 async def t00ls_sign_in():
     bot = get_coolq_bot()
     for r in SignInResource.get_all_t00ls_account():
