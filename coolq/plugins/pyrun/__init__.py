@@ -18,5 +18,5 @@ pyrun = on_command("pyrun")
 
 @pyrun.handle()
 async def run_code(bot: Bot, event: Event, state: T_State):
-    arg_text = event.get_message()
+    arg_text = event.get_plaintext()
     await bot.send(event, custom_exec(arg_text))
