@@ -132,13 +132,14 @@ class RollHistory(Base):
                 group_id=group_id
             ).group_by(
                 RollHistory.user_id
-            ).order_by(func.sum(RollHistory.point))
+            ).order_by(desc(func.sum(RollHistory.point)))
             res = session.execute(statement).first()
             print(res)
             if res:
                 return res
             return 0, 0
         except Exception as e:
+            logger.error("count_most_point err {}".format(str(e)))
             return 0, 0
         finally:
             session.close()
