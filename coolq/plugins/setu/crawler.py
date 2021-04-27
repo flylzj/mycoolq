@@ -1,5 +1,6 @@
 import aiohttp
 from nonebot.log import logger
+import json
 
 
 async def get_setu():
@@ -8,7 +9,8 @@ async def get_setu():
     async with aiohttp.ClientSession() as session:
         try:
             async with session.post(url=setu_url) as r:
-                data = await r.json()
+                data = await r.text()
+                data = json.loads(data)
                 logger.info("setu text" + str(data))
                 if data['msg'] == 'success':
                     pic_url = data['pic_url']
