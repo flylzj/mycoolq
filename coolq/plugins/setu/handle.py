@@ -13,18 +13,4 @@ roll = on_command("setu", aliases={'涩图', '买家秀'}, priority=5)
 @roll.handle()
 async def handle_first_receive(bot: Bot, event: GroupMessageEvent, state: T_State):
     setu = await get_setu()
-    await roll.send("已私聊发您", at_sender=True)
-    setu = Message(f'[CQ:image,file={setu}]')
-
-    group_id = event.dict().get("group_id", 0)
-    if group_id:
-        await bot.call_api(
-            "send_private_msg",
-            **{
-                "user_id": event.user_id,
-                "group_id": group_id,
-                "message": message
-            }
-        )
-        return
-    await bot.send_private_msg(user_id=event.user_id, message=setu)
+    await roll.send(Message(f'[CQ:image,file={setu}]'))
