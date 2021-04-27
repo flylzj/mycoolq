@@ -14,4 +14,4 @@ nonebot.load_plugins("coolq/plugins")
 
 
 if __name__ == '__main__':
-    nonebot.run()
+    nonebot.run(host="0.0.0.0")
