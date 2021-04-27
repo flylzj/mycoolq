@@ -7,10 +7,10 @@ from nonebot.adapters.cqhttp import Bot, Event
 from nonebot.adapters.cqhttp import GroupMessageEvent
 
 from .crawler import get_setu
-roll = on_command("setu", aliases={'涩图', '买家秀'}, priority=5)
+setu = on_command("setu", aliases={'涩图', '买家秀'}, priority=5)
 
 
-@roll.handle()
+@setu.handle()
 async def handle_first_receive(bot: Bot, event: GroupMessageEvent, state: T_State):
-    setu = await get_setu()
-    await roll.send(Message(f'[CQ:image,file={setu}]'))
+    setu_url = await get_setu()
+    await bot.send(event, Message(f'[CQ:image,file={setu_url}]'))
