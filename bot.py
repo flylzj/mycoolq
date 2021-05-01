@@ -3,7 +3,6 @@ import nonebot
 from nonebot.adapters.cqhttp import Bot as CQHTTPBot
 from create_db import init_db
 
-
 init_db()
 nonebot.init()
 
