@@ -7,7 +7,7 @@ from nonebot.typing import T_State
 from nonebot.adapters import Bot, Event
 from .config import Config
 from .resource import RollResource
-from coolq.util.coolq import CoolqBot
+from coolq.util.coolq import get_coolq_bot
 
 
 global_config = nonebot.get_driver().config
@@ -115,8 +115,8 @@ scheduler = require('nonebot_plugin_apscheduler').scheduler
 
 @scheduler.scheduled_job('cron', **plugin_config.DOUBLE_ROLL_TIME_CRON)
 async def increase_day():
-    bot = CoolqBot()
-    if bot.bot:
+    bot = get_coolq_bot()
+    if bot:
         for group_id in plugin_config.MANAGING_GROUPS:
             message = "双倍肉时刻开启，此时肉出的点数将翻倍"
             await bot.send_group_message(message, group_id)

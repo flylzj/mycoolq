@@ -4,7 +4,7 @@ from datetime import datetime
 import time
 from nonebot.log import logger
 from coolq.db.models import RollHistory, RollEvent, RollEventEnum
-from coolq.util.coolq import CoolqBot
+from coolq.util.coolq import get_coolq_bot
 
 
 class RollResource(object):
@@ -115,16 +115,24 @@ class RollResource(object):
     async def roll_count(self):
         message = "本群点数之王:{}\n已掷骰子点数总和:{}\n本群次数之王:{}\n已掷骰子次数:{}"
         most_point_user, most_point, most_times_user, most_times = RollHistory.count_roll(self.group_id)
-        coolq_bot = CoolqBot(bot=self.bot)
-        if self.group_id != 0 and most_point_user != 0:
-            most_point_user = await coolq_bot.get_group_user_nickname(self.group_id, most_point_user)
-        else:
-            most_point_user = ""
+        coolq_bot = get_coolq_bot()
+        try:
+            member_info = await coolq_bot.get_group_member_info(group_id=self.group_id, user_id=int(most_point_user))
+        except Exception as e:
+            logger.error("get_group_member_info err {}".format(str(e)), exc_info=True)
+            member_info = {}
+        if coolq_bot:
+            if self.group_id != 0 and most_point_user != 0:
+                most_point_user = member_info.get("card") if member_info.get("card") \
+                    else member_info.get("nickname", most_point_user)
+            else:
+                most_point_user = ""
 
-        if self.group_id != 0 and most_times_user != 0:
-            most_times_user = await coolq_bot.get_group_user_nickname(self.group_id, most_times_user)
-        else:
-            most_times_user = ""
+            if self.group_id != 0 and most_times_user != 0:
+                most_times_user = member_info.get("card") if member_info.get("card") \
+                    else member_info.get("nickname", most_times_user)
+            else:
+                most_times_user = ""
         return message.format(
             most_point_user,
             most_point,
