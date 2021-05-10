@@ -15,7 +15,7 @@ idna==3.1
 importlib-metadata==3.10.1
 loguru==0.5.3
 multidict==5.1.0
-nonebot-adapter-cqhttp==2.0.0a12
+nonebot-adapter-cqhttp==2.0.0a13
 nonebot-plugin-apscheduler==0.1.2
 nonebot2==2.0.0a13.post1
 pydantic==1.8.1
