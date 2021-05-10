@@ -12,6 +12,7 @@ from coolq.util.coolq import get_coolq_bot
 
 global_config = nonebot.get_driver().config
 plugin_config = Config(**global_config.dict())
+print(global_config)
 
 '''
 2021.4.9
