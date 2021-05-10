@@ -4,6 +4,7 @@ from nonebot import on_command
 from nonebot.adapters import Bot, Event
 from nonebot.typing import T_State
 import os
+from threading import Thread
 import random
 
 
@@ -11,14 +12,18 @@ def custom_exec(code):
     logger.debug(f"custom_exec cmd {code}")
     rand_filename = str(random.random()).split(".")[-1] + ".py"
     tmp_file = os.path.join("/tmp", rand_filename)
-    try:
-        with open(tmp_file, "w") as f:
-            f.write(code)
-        cmd = f"python {tmp_file}"
+
+    def run_shell(cmd):
         res = os.popen(cmd).read()
         if not res:
             return "结果为空"
         return res
+    try:
+        with open(tmp_file, "w") as f:
+            f.write(code)
+        t = Thread(target=run_shell, args=(f"python {tmp_file}", ))
+        t.start()
+
     except Exception as e:
         logger.error(f"custom_exec err {str(e)}")
         return "执行失败"

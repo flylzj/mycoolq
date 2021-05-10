@@ -311,3 +311,42 @@ class SignInAccount(Base):
             return res
         except Exception as e:
             logger.error(f"modify_account err {str(e)}")
+
+
+class SetuHistory(Base):
+    __tablename__ = "setu_history"
+
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    user_id = Column(String(64), nullable=False)
+    create_time = Column(Integer, nullable=False)
+    setu_url = Column(String(255), nullable=False)
+
+    @staticmethod
+    def count_toady_setu(**kwargs):
+        session = SESSION()
+        try:
+            today_start, today_end = get_today_start_end()
+            res = session.query(SetuHistory).filter_by(**kwargs).filter(
+                today_start < SetuHistory.create_time,
+                today_end > SetuHistory.create_time
+            )
+            return res.count()
+        except Exception as e:
+            return 0
+        finally:
+            session.close()
+
+    @staticmethod
+    def insert_setu(**kwargs):
+        session = SESSION()
+        try:
+            setu = SetuHistory(**kwargs)
+            session.add(setu)
+            session.commit()
+            session.refresh(setu)
+            return setu.id
+        except Exception as e:
+            logger.error("insert_point err {}".format(str(e)), exc_info=True)
+            return 0
+        finally:
+            session.close()

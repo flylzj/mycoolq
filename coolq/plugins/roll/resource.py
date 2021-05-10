@@ -10,7 +10,7 @@ from coolq.util.coolq import get_coolq_bot
 class RollResource(object):
     # MAX_ROLL_COUNT_ONE_DAY = 1
     # for test
-    MAX_ROLL_COUNT_ONE_DAY = 1000
+    MAX_ROLL_COUNT_ONE_DAY = 2
 
     ROLL_MANAGER_USERS = (
         "1449902124",

@@ -71,7 +71,8 @@ async def t00ls_sign_in():
         logger.debug(f"start sign in id {r.id} account {r.account_info}")
         account_info = json.loads(r.account_info)
         res = await SignInResource.t00ls_sign_in(account_info=account_info)
-        if res:
-            await bot.send_private_msg(user_id=r.user_id, message=f"{account_info.get('username')}签到成功")
-        else:
-            await bot.send_private_msg(user_id=r.user_id, message=f"{account_info.get('username')}签到失败")
+        if bot:
+            if res:
+                await bot.send_private_msg(user_id=r.user_id, message=f"{account_info.get('username')}签到成功")
+            else:
+                await bot.send_private_msg(user_id=r.user_id, message=f"{account_info.get('username')}签到失败")
