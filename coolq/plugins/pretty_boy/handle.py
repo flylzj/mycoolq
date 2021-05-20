@@ -26,7 +26,7 @@ async def base(group_id, bot_id):
 scheduler = require("nonebot_plugin_apscheduler").scheduler
 
 
-@scheduler.scheduled_job("cron", hour="07", minute='52')
+@scheduler.scheduled_job("cron", hour="00", minute='00')
 async def handle_first_receive():
     # await base(group_id=config.group_id,bot_id=config.bot_id)
     logger.info("start handle_first_receive")
