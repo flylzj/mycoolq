@@ -10,7 +10,7 @@ sex = {
     'famale': '靓妞'
 }
 
-group_id = '892473460'
-bot_id = '2522262730'
+group_id = '97795387'
+bot_id = '732599980'
 message = f'今日{the_boy_sex}诞生啦！{user_id}'
 
