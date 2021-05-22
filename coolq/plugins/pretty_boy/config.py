@@ -1,16 +1,10 @@
-import toml
-file = './coolq/plugins/pretty_boy/the_boy.toml'
-data = toml.load(file)
-the_boy = data['the_boy']
-the_boy_sex = the_boy['sex']
-user_id = the_boy['user_id']
+class CustomConfig(object):
+    redis_host = "redis"
+    redis_port = 3306
+    db = 0  # 存储位置
+    redis_expire = 86400  # 秒
+    BLPOP_TIMEOUT = 10  # 取数超时时间
+    pretty_boy_key = "pretty_boy:key"
 
-sex = {
-    'male': '靓仔',
-    'famale': '靓妞'
-}
-
-group_id = '97795387'
-bot_id = '732599980'
-message = f'今日{the_boy_sex}诞生啦！{user_id}'
-
+    group_id = '97795387'
+    bot_id = '732599980'
