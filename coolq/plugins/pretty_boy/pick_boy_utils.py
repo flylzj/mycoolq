@@ -11,8 +11,8 @@ from .config import CustomConfig
 
 
 async def base(group_id, bot_id):
-    bot: Bot = nonebot.get_bots()[bot_id]
-    sex, user_id = get_today_pretty_boy()
+    bot: Bot = nonebot.get_bots()[str(bot_id)]
+    sex, user_id = await get_today_pretty_boy()
     logger.info(f"the boy {user_id}")
     message = f'今日{sex}诞生啦！{user_id}' + Message(f'[CQ:at,qq={user_id}]')
     return await bot.call_api('send_group_msg', **{
