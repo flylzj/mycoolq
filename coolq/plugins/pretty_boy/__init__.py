@@ -12,7 +12,7 @@ scheduler = require("nonebot_plugin_apscheduler").scheduler
 pretty = on_command("靓仔", aliases={'今日靓仔', 'lz'}, priority=5)
 
 
-@scheduler.scheduled_job("cron", hour="0", minute='0')
+@scheduler.scheduled_job("cron", hour="16", minute='40')
 async def handle_first_receive():
     logger.info("start handle_first_receive")
     await base(group_id=CustomConfig.group_id, bot_id=CustomConfig.bot_id)
