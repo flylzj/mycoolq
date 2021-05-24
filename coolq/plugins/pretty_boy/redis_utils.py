@@ -1,6 +1,6 @@
 import redis
 
-from coolq.plugins.pretty_boy.config import CustomConfig
+from .config import CustomConfig
 
 
 class Redis(object):
@@ -113,4 +113,3 @@ class Redis(object):
             return 0
         r = cls._get_r()
         return r.llen(name)
-
