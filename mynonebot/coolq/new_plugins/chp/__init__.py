@@ -1,13 +1,14 @@
 from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters import Bot, Event
+from nonebot.rule import to_me
 from .crawler import get_chp
 
 
 MAX_COUNT = 10
 MIN_COUNT = 1
 
-chp = on_command("彩虹屁", aliases={'chp', 'p', '放屁', '屁'})
+chp = on_command("彩虹屁", aliases={'chp', 'p', '放屁', '屁'}, rule=to_me())
 
 
 @chp.handle()

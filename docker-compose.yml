@@ -12,6 +12,7 @@ services:
     build: ./mynonebot
     volumes:
       - ./mynonebot:/app
+      - ./data:/data
     ports:
       - "8080:8080"
     command: python3 bot.py
