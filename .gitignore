@@ -2,7 +2,6 @@
 *.pyc
 __pycache__
 venv
-CQA-tuling
-cq
+gocqhttp_data
 data
 *.db

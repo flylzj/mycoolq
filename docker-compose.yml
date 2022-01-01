@@ -1,42 +1,17 @@
-version: '2'
+version: '3'
 services:
+  gocqhttp:
+    image: silicer/go-cqhttp
+    volumes:
+    - ./gocqhttp_data:/data
+    depends_on:
+      - bot
+
   bot:
     restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: ./mynonebot
     volumes:
-      - .:/app
+      - ./mynonebot:/app
     ports:
       - "8080:8080"
     command: python3 bot.py
-
-  coolq:
-    restart: always
-    image: richardchien/cqhttp:latest
-    environment:
-      - FORCE_ENV=true
-      - CQHTTP_WS_REVERSE_API_URL=ws://bot:8080/ws/api/
-      - CQHTTP_WS_REVERSE_EVENT_URL=ws://bot:8080/ws/event/
-      - CQHTTP_USE_WS_REVERSE=yes
-      - CQHTTP_SERVE_DATA_FILES=yes
-      - CQHTTP_ACCOUNT=732599980
-      - VNC_PASSWD=qwer1234
-    volumes:
-      - ./cq:/home/user/coolq
-    ports:
-      - "9000:9000"
-      - "5700:5700"
-
-  redis:
-    restart: always
-    image: redis:latest
-
-  nginx:
-    restart: always
-    image: nginx:latest
-    volumes:
-      - ./nginx_static:/var/www/html
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - "8081:80"

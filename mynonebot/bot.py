@@ -8,4 +8,4 @@ driver.register_adapter("cqhttp", CQHTTPBot)
 nonebot.load_builtin_plugins()
 
 if __name__ == "__main__":
-    nonebot.run()
+    nonebot.run(host="0.0.0.0", port=8080)
