@@ -1,6 +1,6 @@
 # coding: utf-8
 from nonebot import on_command, CommandSession, scheduler, get_bot
-from coolq.db.model.roll import count_toady_roll, insert_point, count_roll, count_my_roll
+from coolq.db import count_toady_roll, insert_point, count_roll, count_my_roll
 import time
 from mynonebot.config import MANAGING_GROUPS
 from coolq.util.coolq import get_group_user_name

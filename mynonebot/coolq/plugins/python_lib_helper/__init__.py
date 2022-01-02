@@ -3,7 +3,7 @@ from nonebot import on_command, CommandSession
 import nonebot
 import aiohttp
 from bs4 import BeautifulSoup
-from coolq.db.model.python_lib_helper import insert_lib, find_lib, insert_lang_ref, find_lang_ref
+from coolq.db import insert_lib, find_lib, insert_lang_ref, find_lang_ref
 from mynonebot.config import LIB_URL, LIB_ROOT_URL, THIRD_LIB_ROOT_URL, PYTHON_TUTORIALS_URL, LOCAL_LIB_URL,\
     LANG_REF_URL, LANG_REF_ROOT_URL, LOCAL_LANG_REF_ROOT_URL,\
     DOC_ROOT_URL, LOCAL_DOC_ROOT_URL

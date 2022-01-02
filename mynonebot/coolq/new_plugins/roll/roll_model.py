@@ -1,7 +1,7 @@
 # coding: utf-8
 from sqlalchemy import Column, Integer, func, desc, Text
-from coolq.db import SESSION
-from . import Base
+from mynonebot.coolq.db import SESSION
+from mynonebot.coolq.db import Base
 import time
 from datetime import datetime
 

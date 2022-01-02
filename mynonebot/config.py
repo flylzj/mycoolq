@@ -1,8 +1,10 @@
 # coding: utf-8
-from nonebot.default_config import *
-import redis
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+
+class BotConfig():
+    pass
 
 # db
 ENGINE = create_engine('sqlite:///./data/data.db', echo=True)

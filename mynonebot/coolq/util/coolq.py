@@ -3,6 +3,14 @@ from nonebot import get_bot
 import re
 
 
+def get_user_id_group_id(session_id: str):
+    if session_id.startswith("group"):
+        ids = session_id.strip("_")
+        return ids[1], ids[2]
+    else:
+        return 0, session_id
+
+
 def at_someone(user_id):
     return f"[CQ:at,qq={user_id}]"
 

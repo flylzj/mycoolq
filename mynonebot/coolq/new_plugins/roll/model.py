@@ -1,7 +1,7 @@
 # coding: utf-8
 from sqlalchemy import Column, Integer, func, desc, Text
 from coolq.db import SESSION
-from . import Base
+from coolq.db import Base
 import time
 from datetime import datetime
 
@@ -18,7 +18,7 @@ class RollHistory(Base):
     message = Column(Text, nullable=False)
 
 
-def count_toady_roll(**kwargs):
+def count_today_roll(**kwargs):
     session = SESSION()
     try:
         today_start = time.mktime(datetime.today().date().timetuple())

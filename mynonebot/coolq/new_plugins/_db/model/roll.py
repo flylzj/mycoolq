@@ -1,6 +1,6 @@
 # coding: utf-8
 from sqlalchemy import Column, Integer, func, desc, Text
-from coolq.db import SESSION
+from coolq.new_plugins._db import SESSION
 from . import Base
 import time
 from datetime import datetime

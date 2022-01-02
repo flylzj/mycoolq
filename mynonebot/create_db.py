@@ -1,7 +1,7 @@
 #coding: utf-8
 from mynonebot.config import ENGINE
 # 显式导入table才能create
-from mynonebot.coolq.db.model import Base
+from coolq.db import Base
 
 
 def init_db(new=False):
