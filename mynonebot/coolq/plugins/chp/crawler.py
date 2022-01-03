@@ -1,3 +1,4 @@
+# coding: utf-8
 import aiohttp
 import json
 from nonebot.log import logger
