@@ -3,7 +3,9 @@ FROM python:3.8-alpine
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk update \
-    && apk add gcc python3-dev musl-dev libffi-dev build-base
+    && apk add gcc python3-dev musl-dev libffi-dev build-base tzdata
+
+ENV TZ Asia/Shanghai
 
 WORKDIR /usr/src/app
 
