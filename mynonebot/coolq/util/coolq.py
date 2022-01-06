@@ -31,3 +31,17 @@ async def get_group_user_name(group_id, user_id):
         return info.get('nickname')
 
     return user_id
+
+
+async def send_message(message_type: str, recipient_id, message, auto_escape=False):
+    bot = get_bot()
+    data = {
+        "message_type": message_type,
+        "message": message,
+        "auto_escape": auto_escape
+    }
+    if message_type == "private":
+        data["user_id"] = recipient_id
+    else:
+        data["group_id"] = recipient_id
+    await bot.call_api("send_msg", **data)
