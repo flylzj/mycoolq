@@ -11,11 +11,9 @@ global_config = get_driver().config
 
 plugin_config = Config(**global_config.dict())
 
-print(plugin_config)
 
-
-# @scheduler.scheduled_job("cron", hour="15", minute="10", second="*/10")
-@scheduler.scheduled_job("cron", second="*/10")
+# @scheduler.scheduled_job("cron", second="*/10") # debug
+@scheduler.scheduled_job("cron", hour="8")
 async def t00ls_sign_cron():
     username = plugin_config.t00ls_username
     login_form = {

@@ -19,9 +19,8 @@ class T00lsSign(BaseSign):
         async with aiohttp.ClientSession() as session:
             async with session.post(self.login_url, data=self.login_form) as resp:
                 resp_json: dict = await resp.json()
-                print(resp_json)
                 if resp_json.get("status") != "success":
-                    self.reason = resp_json.get("message")
+                    self.reason = f'登录失败：{resp_json.get("message")}'
                 return resp_json.get("formhash"), resp.cookies
 
     async def sign(self, formhash, cookies):
@@ -32,9 +31,8 @@ class T00lsSign(BaseSign):
         async with aiohttp.ClientSession(cookies=cookies) as session:
             async with session.post(self.sign_url, data=sign_data) as resp:
                 resp_json: dict = await resp.json()
-                print(resp_json)
                 if resp_json.get("status") != "success":
-                    self.reason = resp_json.get("message")
+                    self.reason = f'签到失败：{resp_json.get("message")}'
                 return resp_json.get("status") == "success"
 
     async def login_and_sign(self):
