@@ -11,7 +11,7 @@ services:
     restart: always
     build: ./mynonebot
     volumes:
-      - ./mynonebot:/app
+      - ./mynonebot:/usr/src/app
       - ./data:/data
       - /etc/timezone:/etc/timezone:ro
     ports:
