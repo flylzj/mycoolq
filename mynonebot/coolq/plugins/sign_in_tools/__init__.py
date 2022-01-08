@@ -35,7 +35,8 @@ class SignBox:
 # @scheduler.scheduled_job("cron", second="*/10") # debug
 @scheduler.scheduled_job("cron", hour="8")
 async def t00ls_sign_cron():
-    await send_message(message_type="private", recipient_id="1449902124", message=SignBox.t00ls_sign())
+    message = await SignBox.t00ls_sign()
+    await send_message(message_type="private", recipient_id="1449902124", message=message)
 
 
 sign_command = on_command("sign", aliases={"签到"}, permission=SUPERUSER)
