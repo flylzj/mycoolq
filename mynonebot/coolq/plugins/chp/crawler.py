@@ -5,7 +5,7 @@ from nonebot.log import logger
 
 
 async def get_chp():
-    chp_url = 'https://api.muxiaoguo.cn/api/caihongpi'
+    chp_url = 'https://api.muxiaoguo.cn/api/caihongpi?api_key=3ca3c2f7b8f96653'
     async with aiohttp.ClientSession() as session:
         try:
             async with session.get(url=chp_url) as r:

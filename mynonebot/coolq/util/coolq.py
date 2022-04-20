@@ -45,3 +45,4 @@ async def send_message(message_type: str, recipient_id, message, auto_escape=Fal
     else:
         data["group_id"] = recipient_id
     await bot.call_api("send_msg", **data)
+    

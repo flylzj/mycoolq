@@ -1,8 +1,10 @@
 # coding: utf-8
 from nonebot import get_driver, require, on_command
 from nonebot.permission import SUPERUSER
-from nonebot.typing import T_State
-from nonebot.adapters import Bot, Event
+from nonebot.matcher import Matcher
+from nonebot.adapters import Message
+from nonebot.params import Arg, CommandArg, ArgPlainText
+from nonebot.log import logger
 
 from coolq.util.coolq import send_message
 from .config import Config
@@ -39,15 +41,26 @@ async def t00ls_sign_cron():
     await send_message(message_type="private", recipient_id="1449902124", message=message)
 
 
-sign_command = on_command("sign", aliases={"签到"}, permission=SUPERUSER)
+# @scheduler.scheduled_job("cron", hour="21", minute="40")
+# async def notice_class():
+#    await send_message(message_type="private", recipient_id="1401924203", message="下课啦！下课啦！下课啦")
 
+
+# @scheduler.scheduled_job("cron", hour="5", minute="25")
+# async def notice_morning():                                   
+#     await send_message(message_type="private", recipient_id="1401924203", message="早安")
+
+
+sign_command = on_command("t00ls_sign")
 
 @sign_command.handle()
-async def sign_command_handle(bot: Bot, event: Event, state: T_State):
-    args = str(event.get_message()).strip()
-    if not args:
+async def sign_command_handle(matcher: Matcher, args: Message = CommandArg()):
+    plain_text = args.extract_plain_text()
+    if not plain_text:
         pass
-    elif args == "土司":
-        await sign_command.finish(await SignBox.t00ls_sign())
+    elif plain_text == "土司":
+        message = await SignBox.t00ls_sign()
+        logger.debug("message", message)
+        await sign_command.finish(message)
 
 
