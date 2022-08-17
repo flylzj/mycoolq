@@ -8,9 +8,9 @@ class BaseSign:
 
 
 class T00lsSign(BaseSign):
-    login_url = "https://www.t00ls.cc/login.json"
-    sign_url = "https://www.t00ls.cc/ajax-sign.json"
-    profile_url = "https://www.t00ls.net/members-profile.json"
+    login_url = "https://www.t00ls.com/login.json"
+    sign_url = "https://www.t00ls.com/ajax-sign.json"
+    profile_url = "https://www.t00ls.com/members-profile.json"
 
     SUCCESS = "success"
 

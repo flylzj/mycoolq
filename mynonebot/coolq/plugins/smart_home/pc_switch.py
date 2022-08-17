@@ -7,7 +7,7 @@ class PcSwitch:
     service_api = "/api/services"
     # 先写死
     pc_list = {
-        "pc1": "switch.pc",
+        "pc1": "switch.pc1",
     }
     ON = "on"
     OFF = "off"
