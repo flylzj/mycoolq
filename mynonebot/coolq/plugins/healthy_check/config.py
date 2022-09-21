@@ -3,9 +3,8 @@ from pydantic import BaseSettings
 
 
 class Config(BaseSettings):
-    zerotier_controller_url = ""
-    zerotier_user = ""
-    zerotier_password = ""
+    ftqq_send_key = ""
+    heakthy_check_msg_recipient_id = ""
 
     class Config:
         extra = "ignore"

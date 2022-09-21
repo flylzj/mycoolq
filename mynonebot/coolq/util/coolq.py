@@ -50,4 +50,8 @@ async def send_message(message_type: str, recipient_id, message, auto_escape=Fal
         pass
     except Exception as e:
         print(e)
+
+
+async def send_private_message(recipient_id, message, auto_escape=False):
+    await send_message("private", recipient_id, message, auto_escape)
     
