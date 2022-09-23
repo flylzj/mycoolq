@@ -9,7 +9,7 @@ from nonebot.log import logger
 from datetime import datetime
 
 from coolq.util.coolq import send_private_message
-from coolq.util.ftqq import send_msg_by_ftqq
+from coolq.util.ftqq import send_msg_by_wecomchan
 from .config import Config
 
 
@@ -49,7 +49,7 @@ async def check_gocqhttp():
     logger.info("status:" + str(status))
     is_online, status_msg = check_status(status)
     if not is_online:
-        await send_msg_by_ftqq(key=plugin_config.ftqq_send_key, title="qq已离线", desp=status_msg)
+        await send_msg_by_wecomchan(key=plugin_config.wecom_send_key, msg=status_msg)
     else:
         await send_private_message(plugin_config.heakthy_check_msg_recipient_id, status_msg)
 
