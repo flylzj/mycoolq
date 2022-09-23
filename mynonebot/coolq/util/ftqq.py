@@ -12,8 +12,7 @@ async def send_msg_by_ftqq(key, title, desp):
         await session.post(push_url, data=data)
 
 
-async def send_msg_by_wecomchan(key, msg):
-    push_url = f"http://wx.ckjz.club/wecomchan?sendkey={key}&msg={msg}&msg_type=text"
+async def send_msg_by_wecomchan(push_url, key, msg):
     data = {
         "sendkey": key,
         "msg": msg,

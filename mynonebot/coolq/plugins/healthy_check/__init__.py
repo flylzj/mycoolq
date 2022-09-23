@@ -49,7 +49,7 @@ async def check_gocqhttp():
     logger.info("status:" + str(status))
     is_online, status_msg = check_status(status)
     if not is_online:
-        await send_msg_by_wecomchan(key=plugin_config.wecom_send_key, msg=status_msg)
+        await send_msg_by_wecomchan(push_url=plugin_config.wecom_push_url, key=plugin_config.wecom_send_key, msg=status_msg)
     else:
         await send_private_message(plugin_config.heakthy_check_msg_recipient_id, status_msg)
 
@@ -61,4 +61,5 @@ async def sign_command_handle(bot: Bot, event: Event, state: T_State):
     status = await bot.get_status()  # call /get_status
     logger.info("status:" + str(status))
     _, status_msg = check_status(status)
+    await send_msg_by_wecomchan(push_url=plugin_config.wecom_push_url, key=plugin_config.wecom_send_key, msg=status_msg)
     await get_status_command.finish(status_msg)
